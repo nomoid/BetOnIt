@@ -1,6 +1,7 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  margin-top: 20px;
   background: #262626;
   -webkit-perspective: 800px;
 }
@@ -17,6 +18,7 @@ ol, ul {
 
 .status {
   color: white;
+  font: 16px "Century Gothic", Futura, sans-serif;
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;
