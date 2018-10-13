@@ -5,20 +5,42 @@ import './index.css';
 class Coin extends React.Component {
   render() {
     return (
-      <button className="circle" onClick={function() { alert('click'); }}>
-        {/* TODO */}
+      <button
+      className="circle"
+      onClick={() => this.props.onClick()}
+      >
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flip: null,
+      msg: null,
+    };
+  }
+
+  handleClick() {
+    const rand = Math.random();
+    const value = rand < 0.5 ? '0' : '1';
+    this.setState({flip: value});
+    this.setState({msg: 'The flip is ' + (value == 1 ? 'heads' : 'tails')})
+  }
+
   renderCoin(i) {
-    return <Coin />;
+    return <Coin
+      value={this.state.flip}
+      onClick={() => this.handleClick(i)}
+    />;
   }
 
   render() {
     const status = 'Click to flip the coin';
+    const flip_result = this.state.msg;
 
     return (
       <div>
@@ -26,6 +48,7 @@ class Board extends React.Component {
         <div className="board-row">
           {this.renderCoin(0)}
         </div>
+        <div className="status">{flip_result}</div>
       </div>
     );
   }
