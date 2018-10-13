@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon } from 'react-bootstrap';
 import '../Styles/Login.css';
-import { auth } from '../Firebase';
-
+//import auth from postgresql
 class LoginComponent extends Component {
     
   constructor(props){
