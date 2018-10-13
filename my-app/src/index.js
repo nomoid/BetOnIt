@@ -13,9 +13,6 @@ class Coin extends React.Component {
         <Flippy
           flipOnClick={true} // default false
           flipDirection="horizontal" // horizontal or vertical
-          ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
-          // if you pass isFlipped prop component will be controlled component.
-          // and other props, which will go to div
           onClick={() => this.props.onClick()}
         >
           <FrontSide
@@ -40,6 +37,9 @@ class Board extends React.Component {
     this.state = {
       flip: ' ',
       msg: null,
+      tails: 0,
+      heads: 0,
+      counter: ' '
     };
   }
 
@@ -47,7 +47,14 @@ class Board extends React.Component {
     const rand = Math.random();
     const value = rand < 0.5 ? 'H' : 'T';
     this.setState({flip: value});
-    this.setState({msg: 'The flip is ' + (value < 0.5 ? 'heads' : 'tails')})
+    this.setState({msg: 'The flip is ' + (rand < 0.5 ? 'heads' : 'tails')});
+    if (value === 'H') {
+      this.setState({heads: this.state.heads + 1})
+    }
+    else {
+      this.setState({tails: this.state.tails + 1})
+    }
+    this.setState({counter: 'Tails: ' + this.state.tails + ', Heads: ' + this.state.heads});
   }
 
   renderCoin(i) {
@@ -66,6 +73,7 @@ class Board extends React.Component {
         <div className="status">{status}</div>
           {this.renderCoin(0)}
         <div className="status">{flip_result}</div>
+        <div className="status">{this.state.counter}</div>
       </div>
     );
   }
