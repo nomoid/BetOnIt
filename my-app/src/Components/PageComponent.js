@@ -5,7 +5,7 @@ import CenterView from './CenterView';
 import Login from './LoginComponent';
 import Logout from './LogoutComponent';
 import Signup from './SignupComponent';
-import Coin from './coin';
+import Coin from './CoinComponent';
 //import Navigate from './Navigate';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const PageComponent = ({authUser}) =>
     <div>
         { authUser ? <PageAuth authUser={authUser} /> : <PageNonAuth /> }
-    </div> 
+    </div>
 
 const PageNonAuth = () =>
     <div className="Page">
@@ -34,7 +34,7 @@ const PageNonAuth = () =>
             </Navbar.Header>
             <Nav pullRight>
               <Login></Login>
-              
+
             </Nav>
         </Navbar>
 
@@ -44,7 +44,7 @@ const PageNonAuth = () =>
             </CenterView>
         </div>
     </div>
-    
+
 const PageAuth = ({authUser}) =>
     <div className="Page">
         <Navbar>
