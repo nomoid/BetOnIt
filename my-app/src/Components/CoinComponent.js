@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import './coin.css';
+import '../Styles/coin.css';
 
 class Coin extends React.Component {
   render() {
@@ -101,3 +101,5 @@ ReactDOM.render(
   <Game />,
   document.getElementById('root')
 );
+
+export default Coin;
