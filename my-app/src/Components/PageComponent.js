@@ -25,13 +25,11 @@ const PageNonAuth = () =>
                     <Router>
                     <div>
                         <li>
-                            <Link to="/coin">Coin Flip</Link>
+                            <a href="/coin">Coin Flip</a>
                         </li>
-                        <Route path="/coin" component = {Game}/>
                         <li>
-                            <Link to="/profile">Past Matches</Link>
+                            <a href="/table">Table</a>
                         </li>
-                        <Route path="/profile" component = {Table}/>
                     </div>
                     </Router>
                 </Navbar.Brand>

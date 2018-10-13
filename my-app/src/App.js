@@ -27,11 +27,14 @@ class App extends Component {
 
   render() {
     return (
-            <Router>
+      <main>
+        {this.props.children}
+      </main>
+            /*<Router>
                 <div>
                     <Page authUser={this.state.authUser} />
                 </div>
-            </Router>
+            </Router>*/
     );
   }
 }
