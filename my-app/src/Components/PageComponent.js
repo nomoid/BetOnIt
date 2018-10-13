@@ -6,6 +6,7 @@ import Login from './LoginComponent';
 import Logout from './LogoutComponent';
 import Signup from './SignupComponent';
 import Game from './CoinComponent';
+import Table from './HistoryComponent';
 //import Navigate from './Navigate';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -24,9 +25,13 @@ const PageNonAuth = () =>
                     <Router>
                     <div>
                         <li>
-                            <Link to="/coin">Coin Game</Link>
+                            <Link to="/coin">Coin Flip</Link>
                         </li>
                         <Route path="/coin" component = {Game}/>
+                        <li>
+                            <Link to="/profile">Past Matches</Link>
+                        </li>
+                        <Route path="/profile" component = {Table}/>
                     </div>
                     </Router>
                 </Navbar.Brand>

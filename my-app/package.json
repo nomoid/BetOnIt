@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "namor": "^1.1.1",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
     "react-flippy": "^0.1.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.4"
+    "react-scripts": "2.0.4",
+    "react-table": "^6.8.6",
+    "username-generator": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
