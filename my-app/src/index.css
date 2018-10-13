@@ -21,11 +21,9 @@ ol, ul {
 }
 
 .circle {
+  outline: none;
   background: #fff;
-  border: 1px solid #999;
   font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
   padding: 0;
   text-align: center;
   position: relative;
