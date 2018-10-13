@@ -1,0 +1,38 @@
+.Signup {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+}
+
+.Signup-inputs {
+    font-family: Times;
+    font-size: 20px;
+    width: 100px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.Signup-button {
+    font-family: Times;
+    width: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: white;
+    border: 2px solid #008CBA;
+    font-family: Times;
+}
+
+.Signup-button:hover {
+    background-color: #008CBA;
+    color: white;
+}

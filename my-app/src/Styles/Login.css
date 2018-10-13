@@ -1,0 +1,36 @@
+.Login {
+  padding: 20px;
+}
+
+.Login-inputs {
+    font-family: Times;
+    width: 80px;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.Login-inputs::placeholder{
+    text-align: center;
+}
+
+.Login-button {
+    font-family: Times;
+    width: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: white;
+    border: 2px solid #008CBA;
+    font-family: Times;
+}
+
+.Login-button:hover {
+    background-color: #008CBA;
+    color: white;
+}
