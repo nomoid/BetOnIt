@@ -102,4 +102,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-export default Coin;
+export default Game;

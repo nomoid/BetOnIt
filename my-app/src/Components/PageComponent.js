@@ -5,7 +5,7 @@ import CenterView from './CenterView';
 import Login from './LoginComponent';
 import Logout from './LogoutComponent';
 import Signup from './SignupComponent';
-import Coin from './CoinComponent';
+import Game from './CoinComponent';
 //import Navigate from './Navigate';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const PageNonAuth = () =>
                         <li>
                             <Link to="/coin">Coin Game</Link>
                         </li>
-                        <Route path="/coin" component = {Coin}/>
+                        <Route path="/coin" component = {Game}/>
                     </div>
                     </Router>
                 </Navbar.Brand>
