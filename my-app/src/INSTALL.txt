@@ -1,3 +1,6 @@
 npm install react-flippy
 npm install react-table
 npm install username-generator --save
+npm install react-dom
+npm install react-router-dom
+npm install react-bootstrap
