@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import './index.css';
+import './coin.css';
 
 class Coin extends React.Component {
   render() {
     return (
-      <button
+      <div
       className="circle"
       onClick={() => this.props.onClick()}
       >
@@ -19,17 +19,17 @@ class Coin extends React.Component {
           onClick={() => this.props.onClick()}
         >
           <FrontSide
-            style={{ backgroundColor: '#41669d',
+            style={{ backgroundColor: '#d9a760',
                     width: '130px', height: '130px', borderRadius: '50%'}}>
             {this.props.value}
           </FrontSide>
           <BackSide
-            style={{ backgroundColor: '#175852',
+            style={{ backgroundColor: '#ca8b30',
                     width: '130px', height: '130px', borderRadius: '50%'}}>
             {this.props.value}
           </BackSide>
         </Flippy>
-      </button>
+      </div>
     );
   }
 }
@@ -45,7 +45,7 @@ class Board extends React.Component {
 
   handleClick() {
     const rand = Math.random();
-    const value = rand < 0.5 ? '0' : '1';
+    const value = rand < 0.5 ? 'H' : 'T';
     this.setState({flip: value});
     this.setState({msg: 'The flip is ' + (value < 0.5 ? 'heads' : 'tails')})
   }
