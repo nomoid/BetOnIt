@@ -1,15 +1,15 @@
-# BetOnIt
+# Bet On It
 HackUMass October 14 2018
 
 We lay the foundation for a betting app where one can invite other users to place bets on certain outcomes.
 Our application supports user-creation, user-login, profile, creating game rooms, joining game rooms, and some games for proof of concept. This platform was created such that it will be easily expandable and we will be able to add games to our website platform as more are designed. The idea for a social betting website came from Nudge, a book written by nobel laureate Richard Thaler. He discovered that however marginal, the possibility of losing money motivates people to adhere to their promises. 
 
 ## Features
-1. **Homepage**: 
-2. **Dashboard**: 
-3. **User Profile**: 
-4. **Create New Game**: 
-5. **Join Existing Game**: 
+1. **Homepage**: registration for a new user profile and login 
+2. **Dashboard**: a scrollable that contains information about user profile, ability to create new bets, current credit on hand, and all the active bets
+3. **User Profile**: lists a history of all previous games played by the player, along with their win rates
+4. **Create New Game**: creates a coin flip game with a unique room code that gets added to the dashboard, open to public viewing for all other users
+5. **Join Existing Game**: browse through the list of currently ongoing games, listed by their room codes and current bets
 
 ## Getting Started
 
