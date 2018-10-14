@@ -125,7 +125,7 @@ class Main extends Component {
     };
     
     io.emit("initialize", {
-      id: Math.floor(Math.random() * 1000) //TODO
+      id: this.props.authUser.uid
     }, (balance) => {
       this.state.credit = balance;
       io.emit("get-room-list", null, (list) => {

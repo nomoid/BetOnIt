@@ -90,7 +90,7 @@ class Board extends React.Component {
         <div className="status">{this.state.end_msg}</div>
         <div className="back">
           { this.state.showing ? <div><Link to={{
-            pathname: "/main",
+            pathname: "/",
             state: {
               refresh: true
             }
