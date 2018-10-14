@@ -28,7 +28,7 @@ class NewGame extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Opponent id:
+          Room code:
           <input type="text" value={this.state.opp} onChange={this.handleChange1} />
         </label>
         <label>

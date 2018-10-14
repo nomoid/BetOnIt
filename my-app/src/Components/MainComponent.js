@@ -4,11 +4,6 @@ import { Flipper, Flipped } from "react-flip-toolkit";
 import { Link } from 'react-router-dom';
 import '../Styles/Main.css';
 
-class MainComponent extends React.Component {
-
-
-}
-
 const listData = [...Array(7).keys()];
 const colors = ["#A4C3B2", "#6B9080", "#545C52"];
 const shouldFlip = index => (prev, current) =>
@@ -78,7 +73,10 @@ const ExpandedListItem = ({ index, color, onClick }) => {
 };
 
 class Main extends Component {
-  state = { focused: null };
+  state = {
+    focused: null,
+    credit: 130
+  };
   onClick = index =>
     this.setState({
       focused: this.state.focused === index ? null : index
@@ -98,7 +96,13 @@ class Main extends Component {
         decisionData={this.state.focused}
       >
         <div className = "Main">
-          <div className="new-game"> <Link to="/new">New Game</Link></div>
+          <div className="stickyheader">
+            <Link to="/profile">Profile</Link>
+            {'\n'}________________________;
+            <Link to="/new">New Game</Link>
+            <div className="credit">Credit: ${this.state.credit}</div>
+          </div>
+          <div className="spacer"> </div>
         <ul className="list">
           {listData.map(index => {
             return (

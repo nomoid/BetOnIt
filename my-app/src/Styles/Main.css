@@ -9,11 +9,25 @@
   text-align: center;
 }
 
-.new-game {
+.spacer {
   margin-bottom: 20px;
   padding: 10px;
   text-align: center;
 }
+
+.credit {
+  color: black;
+  text-align: right;
+}
+
+.stickyheader{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 10px;
+}
+
 .staggered-list-content {
   width: 400px;
   margin: 2rem auto;
