@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon, Panel } from 'react-bootstrap';
 import '../Styles/Signup.css';
-//import auth from postgresql
+import { auth, db } from '../Firebase';
 
 class SignupComponent extends Component {
   
@@ -26,24 +26,20 @@ class SignupComponent extends Component {
   
     signup(e){
         e.preventDefault();
-        fetch("/signup", {
-            method : "POST",
-            headers: {
-                'Accept'      : 'application/json',
-                'Content-Type': 'application/json'
-            },
-
-            //make sure to serialize your JSON body
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
-            })
-        })
-            // output here, if no error, is the user's metadata
-            .then((response) => {
-                console.log(response);
-                localStorage.setItem('token', response.token);
+        auth.doCreateUserWithEmailAndPassword(this.state.email,this.state.password)
+        .then( authUser => {
+            db.doCreateUser( authUser.user.uid, this.state.username, this.state.email )
+            .catch(function(error){
+               var code = error.code;
+               var message = error.message;
+               console.log("Failed to create user in database: " + message + "(" + code + ")" );
             });
+        }).catch(function(error){
+            // handle errors
+            var code = error.code;
+            var message = error.message;
+            console.log("Failed to create user in Firebase: " + message + "(" + code + ")" );
+        }); 
     }
     
   render() {

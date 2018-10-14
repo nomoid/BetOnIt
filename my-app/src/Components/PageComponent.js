@@ -61,5 +61,11 @@ const PageAuth = ({authUser}) =>
               <Logout authUser={authUser} ></Logout>
             </Nav>
         </Navbar>
+
+        <div className="container">
+            <CenterView>
+                /*Main Page Link*/
+            </CenterView>
+        </div>        
     </div>
 export default PageComponent;

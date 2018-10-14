@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Glyphicon, Well } from 'react-bootstrap';
 import '../Styles/Login.css';
-//import an auth token from postgresql
+import { auth, db } from '../Firebase';
+
 class LogoutComponent extends Component {
     
   constructor(props){
@@ -14,12 +15,26 @@ class LogoutComponent extends Component {
   }
   
   componentDidMount(){
-    //write to the server to logout
+    var users = db.getUserRef(this.props.authUser.uid);
+    users.once('value')
+    .then( (snapshot) => {
+        this.setState({ username: snapshot.val().username });
+    }).catch(function(error){
+        var code = error.code;
+        var message = error.message;
+        console.log("Failed to set username: " + message + "(" + code + ")" );
+    });  
   }
   
   logout(e) {
     e.preventDefault();
     //logout from the postgresql
+    auth.doLogout().catch(function(error){
+        // handle errors
+        var code = error.code;
+        var message = error.message;
+        console.log("Failed to logout: " + message + "(" + code + ")" );
+    });
   }
    
   render() {
