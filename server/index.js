@@ -25,11 +25,14 @@ app.use(allowCrossDomain);
 
 app.use(express.static(clientPath));
 
+//Backend code for socket.io
 const io = socketio(server);
 io.origins('*:*');
 
 console.log("Hello, world!");
 
+//List of games that are available
+//Currently only cointoss
 let games = {
     'cointoss': {
         //Return winner
@@ -47,26 +50,34 @@ let games = {
     }
 };
 
+//Map of player ids to sockets and what room the player is in
 let socks = {
 
 };
 
+//Map of rooms to the game data stored in the rooms and which players are in the room
 let rooms = {
 
 };
 
+//List of room ids that are public
 let publicRooms = [];
 
+//Map of player ids to amount of credit that player has
 let balances = {
 
 };
 
+//Called when a new player joins
+//Socket io is an event based system for communicating between the clients and the server
+//The input and callback signatures will be provided for the following events
 io.on("connection", (sock) => {
     console.log("Player joined");
     /*
-    {
+    input: {
         id: (int)
     }
+    callback: balance (int)
     */
     sock.on("initialize", (info, callback) => {
         let id = info.id;
@@ -79,7 +90,7 @@ io.on("connection", (sock) => {
         }
         callback(balances[id]);
         /*
-        {
+        input: {
             name: (String),
             public: (boolean),
             payment: (int)
@@ -128,7 +139,7 @@ io.on("connection", (sock) => {
         }
         callback: {
             success: (boolean),
-            gameData: (Object),
+            gameData: (Object)
         }
         */
         sock.on("join-room", (input, callback) => {
@@ -181,6 +192,9 @@ io.on("connection", (sock) => {
                 checkAllReady(roomCode);
             }
         });
+        /*
+        input: roomCode (int)
+        */
         sock.on("ready", (roomCode) => {
             let game = rooms[roomCode];
             if(!game){
@@ -203,11 +217,17 @@ io.on("connection", (sock) => {
             game.ready.push(id);
             checkAllReady(roomCode);
         });
+        /*
+        callback: balance (int)
+        */
         sock.on("get-balance", (nullobj, callback) => {
             let object = nullobj;
             console.log(id + " getting balance");
             callback(balances[id])
         });
+        /*
+        callback: rooms (Room[])
+        */
         sock.on("get-room-list", (nullobj, callback) => {
             console.log(id + " fetched room list");
             let object = nullobj;
@@ -242,6 +262,7 @@ io.on("connection", (sock) => {
     });
 });
 
+//Checks that a game is ready to be run
 function checkAllReady(roomCode){
     let game = rooms[roomCode];
     let players = game.ready;
@@ -273,10 +294,12 @@ function checkAllReady(roomCode){
     deleteRoom(roomCode);
 }
 
+//Generate a random 6-digit room code
 function makeRoomCode(){
     return Math.floor(Math.random() * 900000) + 100000;
 }
 
+//Helper method to remove an element from an array
 function remove(arr, elem){
     let index = arr.indexOf(elem);
     if(index >= 0){
@@ -284,6 +307,7 @@ function remove(arr, elem){
     }
 }
 
+//Delete a room based on its room code
 function deleteRoom(roomCode){
   let room = rooms[roomCode];
   if(room){
@@ -297,6 +321,7 @@ function deleteRoom(roomCode){
 }
 
 
+//Start the socket IO server by listening on the specified port
 const port = process.env.PORT || 8080;
 server.listen(port, () => {
   console.log('App started on ' + port);
