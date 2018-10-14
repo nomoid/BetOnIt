@@ -1,18 +1,4 @@
-const http = require('http');
-const express = require('express');
-const socketio = require('socket.io');
-const app = express();
-const server = http.createServer(app);
-
-const clientPath = `${__dirname}/../client`;
-console.log(`Serving static from ${clientPath}`);
-
-app.use(express.static(clientPath));
-
-const io = socketio(server);
-io.set('origins', '*:*');
-
-console.log("Hello, world!");
+const io = require('socket.io');
 
 let games = {
     'cointoss': {
@@ -46,7 +32,6 @@ let balances = {
 };
 
 io.on("connection", (sock) => {
-    console.log("Player joined");
     /*
     {
         id: (int)
@@ -54,7 +39,6 @@ io.on("connection", (sock) => {
     */
     sock.on("initialize", (info, callback) => {
         let id = info.id;
-        console.log("Player connected with id " + id);
         socks[id] = {
             sock: sock
         };
@@ -166,7 +150,6 @@ io.on("connection", (sock) => {
             checkAllReady(game);
         });
         sock.on("get-room-list", (obj, callback) => {
-            let object = obj;
             let arr = [];
             for(let i = 0; i < publicRooms.length; i++){
                 let room = rooms[publicRooms[i]];
@@ -234,9 +217,3 @@ function remove(arr, elem){
         delete arr[index];
     }
 }
-
-
-const port = process.env.PORT || 8080;
-server.listen(port, () => {
-  console.log('App started on ' + port);
-});

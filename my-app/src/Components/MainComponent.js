@@ -4,6 +4,8 @@ import { Flipper, Flipped } from "react-flip-toolkit";
 import { Link } from 'react-router-dom';
 import '../Styles/Main.css';
 
+const io = require('../client.js').io;
+
 
 const colors = ["#A4C3B2", "#6B9080", "#545C52"];
 
@@ -80,31 +82,32 @@ class Main extends Component {
   
 
   constructor(){
-    this.listData = [...Array(7).keys()];
-    this.bets = ['50', '640', '450', '10', '200', '150', '130']
-    this.rooms = ['123141', '531412', '213141', '064834', '234591', '932914', '322512']
+    super();
+    console.log("Initialize");
     this.state = {
+      listData: [...Array(0).keys()],
+      bets: [],
+      rooms: [],
       focused: null,
       credit: 0
     };
-    const io = require('../client.js');
-    io.on("connection", () => {
+    io.on("connect", () => {
       io.emit("initialize", {
         id: Math.floor(Math.random() * 1000) //TODO
       }, (balance) => {
         this.state.credit = balance;
-        io.emit("get-room-list", (list) => {
-          this.listData = [...Array(list.length).keys()];
-          this.rooms = [];
-          this.bets = [];
+        io.emit("get-room-list", null, (list) => {
+          this.state.listData = [...Array(list.length).keys()];
+          this.state.rooms = [];
+          this.state.bets = [];
           for(let i = 0; i < list.length; i++){
             let roomCode = list[i].roomCode;
             let payment = list[i].payment;
-            this.rooms.push(roomCode);
-            this.bets.push(payment);
+            this.state.rooms.push(roomCode);
+            this.state.bets.push(payment);
           }
           this.forceUpdate(() => {
-
+            console.log("Done updating")
           });
         });
       });
@@ -138,19 +141,19 @@ class Main extends Component {
           </div>
           <div className="spacer"> </div>
         <ul className="list">
-          {this.listData.map(index => {
+          {this.state.listData.map(index => {
             return (
               <li>
                 {index === this.state.focused ? (
                   <ExpandedListItem
-                    bet_amount={this.bets[index]}
+                    bet_amount={this.state.bets[index]}
                     index={this.state.focused}
                     color={colors[this.state.focused % colors.length]}
                     onClick={this.onClick}
                   />
                 ) : (
                   <ListItem
-                  room={this.rooms[index]}
+                  room={this.state.rooms[index]}
                   index={index}
                   key={index}
                   color={colors[index % colors.length]}
