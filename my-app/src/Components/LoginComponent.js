@@ -43,6 +43,8 @@ class LoginComponent extends Component {
     })
     .then((json) => {
       console.log(JSON.stringify(json));
+      localStorage.setItem('token', json.token);
+      localStorage.setItem('id', json.id);
     });
   }
     
