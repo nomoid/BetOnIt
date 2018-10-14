@@ -63,20 +63,17 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* React.js - frontend
+* Node.js - backend
+* Firebase - authentication
+* Socket.io - server
 
-## Contributing
+## Contribution
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+See documentation for our division of labor.
 
 ## Authors
-* Markus Feng - [PurpleBooth](https://github.com/PurpleBooth)
-* Alex Han
-* Jian Lu
-* Tongyu Zhou
+* Markus Feng - [assisstion](https://github.com/assisstion)
+* Alex Han - [assisstion](https://github.com/assisstion)
+* Jian Lu - [jian13579](https://github.com/jian13579) 
+* Tongyu Zhou - [eutopi](https://github.com/eutopi)
