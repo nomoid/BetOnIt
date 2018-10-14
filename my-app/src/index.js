@@ -24,6 +24,7 @@ ReactDOM.render(
       <Route path="/main" component={Main} />
       <Route path="/coin" component={Game} />
       <Route path="/profile" component={Table} />
+      <Route path="/new" component={NewGame} />
       <Route path="/request" component={ResponseRequest} />
     </Switch>
   </BrowserRouter>,

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import { Flipper, Flipped } from "react-flip-toolkit";
+import { Link } from 'react-router-dom';
 import '../Styles/Main.css';
 
 class MainComponent extends React.Component {
@@ -67,7 +68,7 @@ const ExpandedListItem = ({ index, color, onClick }) => {
             <div className="description">
               Coin Flip</div>
             <div className="additional-content">
-              <div className = "join-button"> join game</div>
+              <div className = "join-button"> <Link to="/coin">join game</Link></div>
             </div>
           </div>
         </Flipped>
