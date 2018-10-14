@@ -98,6 +98,7 @@ class Main extends Component {
         decisionData={this.state.focused}
       >
         <div className = "Main">
+          <div className="new-game"> <Link to="/new">New Game</Link></div>
         <ul className="list">
           {listData.map(index => {
             return (

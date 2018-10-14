@@ -9,6 +9,11 @@
   text-align: center;
 }
 
+.new-game {
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: center;
+}
 .staggered-list-content {
   width: 400px;
   margin: 2rem auto;
