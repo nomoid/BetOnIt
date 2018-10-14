@@ -67,8 +67,12 @@ const ExpandedListItem = ({ tryJoin, room, bet_amount, index, color, onClick }) 
               Coin Flip
               <div className="bet-summary">Current bet:</div>
               <div className="bet-summary">${bet_amount}</div>
-              <div><button onClick={(event) => tryJoin(event, room)}>Submit</button></div>
+              <div>{"\n"}</div>
+              <div>{"\n"}</div>
+              <div className = "join-button">
+                <button onClick={(event) => tryJoin(event, room)}>Join Game</button>
               </div>
+            </div>
             <div className="additional-content">
               <div className = "join-button">
               </div>
