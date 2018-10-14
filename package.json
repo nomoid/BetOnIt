@@ -23,7 +23,11 @@
   },
   "dependencies": {
     "express": "^4.16.4",
+<<<<<<< HEAD
     "react-router": "^4.3.1",
+=======
+    "knex": "^0.15.2",
+>>>>>>> backend-markus
     "socket.io": "^2.1.1"
   }
 }
