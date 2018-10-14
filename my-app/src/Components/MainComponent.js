@@ -123,7 +123,7 @@ class Main extends Component {
   tryJoin = (event, room) => {
     io.emit("join-room", {
       roomCode: room,
-      ready: false
+      ready: true
     }, (result) => {
       if(result.success){
         console.log("Success");

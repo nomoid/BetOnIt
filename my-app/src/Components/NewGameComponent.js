@@ -42,7 +42,7 @@ class NewGame extends Component {
     }, (info) => {
       if(info.success){
         alert('Game created with room code ' + info.roomCode);
-        this.setState({redirect: true});
+        this.setState({redirect: true, roomCode: info.roomCode});
       }
       else{
         alert('Failed to create game!');
@@ -53,7 +53,12 @@ class NewGame extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect push to="/loading" />;
+      return <Redirect push to={{
+        pathname: "/loading",
+        state: {
+          roomCode: this.state.roomCode
+        }
+      }} />;
     }
     return (
       <div className='Forms'>

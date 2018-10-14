@@ -153,7 +153,7 @@ io.on("connection", (sock) => {
             });
             if(ready){
                 game.ready.push(id);
-                checkAllReady(game);
+                checkAllReady(roomCode);
             }
         });
         sock.on("ready", (roomCode) => {
@@ -169,7 +169,7 @@ io.on("connection", (sock) => {
             }
             console.log(id + " readied in room " + roomCode);
             game.ready.push(id);
-            checkAllReady(game);
+            checkAllReady(roomCode);
         });
         sock.on("get-room-list", (nullobj, callback) => {
             console.log(id + " fetched room list");
@@ -205,12 +205,12 @@ io.on("connection", (sock) => {
     });
 });
 
-function checkAllReady(game){
+function checkAllReady(roomCode){
+    let game = rooms[roomCode];
     let players = game.ready;
     if(players.length !== game.game.maxPlayers()){
         return;
     }
-    let roomCode = game.roomCode;
     remove(publicRooms, roomCode);
     let inputs = null; //TODO inputs
     let winner = game.game.run(players, inputs);
@@ -219,13 +219,15 @@ function checkAllReady(game){
     for(let i = 0; i < players.length; i++){
         let player = players[i];
         if(player === winner){
-            socks[player].sock.emit("win-game", {
+            socks[player].sock.emit("end-game-" + roomCode, {
+                win: true,
                 roomCode: roomCode,
                 balance: balances[player]
             });
         }
         else{
-            socks[player].sock.emit("lose-game", {
+            socks[player].sock.emit("end-game-" + roomCode, {
+                win: false,
                 roomCode: roomCode,
                 balance: balances[player]
             });
@@ -243,6 +245,18 @@ function remove(arr, elem){
     if(index >= 0){
         delete arr[index];
     }
+}
+
+function deleteRoom(roomCode){
+  let room = rooms[roomCode];
+  if(room){
+    let players = room.players;
+    for(let i = 0; i < players.length; i++){
+      let player = players[i];
+      delete socks[player].room;  
+    }
+    delete rooms[roomCode];
+  }
 }
 
 

@@ -35,6 +35,7 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      win: props.win,
       flip: ' ',
       msg: null,
       tails: 0,
@@ -44,7 +45,13 @@ class Board extends React.Component {
   }
 
   handleClick() {
-    const rand = Math.random();
+    let rand;
+    if(this.state.win){
+      rand = 0.75;
+    }
+    else{
+      rand = 0.25;
+    }
     const value = rand < 0.5 ? 'H' : 'T';
     this.setState({flip: value});
     this.setState({msg: 'The flip is ' + (rand < 0.5 ? 'heads' : 'tails')});
@@ -84,7 +91,9 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board 
+          win={this.props.location.state.info.win}
+          />
         </div>
         <div className="game-info">
           <div>{/* status */}</div>
