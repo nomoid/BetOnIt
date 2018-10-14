@@ -92,7 +92,7 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board 
-          win={this.props.location.state.info.win}
+            win={this.props.location.state.info.win}
           />
         </div>
         <div className="game-info">
@@ -106,9 +106,9 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(
-  <Game />,
-  document.getElementById('root')
-);
+//ReactDOM.render(
+//  <Game />,
+//  document.getElementById('root')
+//);
 
 export default Game;
