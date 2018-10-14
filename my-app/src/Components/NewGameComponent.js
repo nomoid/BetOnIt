@@ -32,6 +32,7 @@ class NewGame extends Component {
     let value = parseInt(this.state.bet, 10);
     if(value <= 0){
       alert('Invalid bet input!');
+      event.preventDefault();
       return;
     }
     /*
