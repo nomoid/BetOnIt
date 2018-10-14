@@ -12,7 +12,7 @@ const server = http.createServer(app)
 app.post('/signup', User.signup)
 app.post('/signin', User.signin)
 
-const port = 3000;
+const port = 8080;
 server.listen(port, () => {
     console.log("Server started on port " + port);
 })

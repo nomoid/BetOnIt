@@ -41,6 +41,7 @@ class SignupComponent extends Component {
         })
             // output here, if no error, is the user's metadata
             .then((response) => {
+                console.log(response);
                 localStorage.setItem('token', response.token);
             });
     }
