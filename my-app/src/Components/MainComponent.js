@@ -42,6 +42,43 @@ const ListItem = ({ room, index, color, onClick }) => {
 };
 
 
+const ExpandedListItem = ({ tryJoin, room, bet_amount, index, color, onClick }) => {
+  return (
+    <Flipped
+      flipId={`listItem-${index}`}
+      stagger="card"
+      onStart={el => {
+        setTimeout(() => {
+          el.classList.add("animated-in");
+        }, 400);
+      }}
+    >
+      <div className="expandedListItem"
+           style={{ backgroundColor: color }}
+           onClick={() => onClick(index)}>
+        <Flipped inverseFlipId={`listItem-${index}`}>
+          <div className="expandedListItemContent">
+            <Flipped flipId={`avatar-${index}`} stagger="card-content">
+              <div className="avatar avatarExpanded">
+                <img src={require('../Images/coin.svg')} />
+              </div>
+            </Flipped>
+            <div className="description">
+              Coin Flip
+              <div className="bet-summary">Current bet:</div>
+              <div className="bet-summary">${bet_amount}</div>
+              <div><button onClick={(event) => tryJoin(event, room)}>Submit</button></div>
+              </div>
+            <div className="additional-content">
+              <div className = "join-button"> 
+              </div>
+            </div>
+          </div>
+        </Flipped>
+      </div>
+    </Flipped>
+  );
+};
 
 //<Link to="/coin">join game</Link>
 class Main extends Component {
@@ -83,65 +120,27 @@ class Main extends Component {
     })
   }
 
-  ExpandedListItem = function(room, bet_amount, index, color, onClick ){
-    return (
-      <Flipped
-        flipId={`listItem-${index}`}
-        stagger="card"
-        onStart={el => {
-          setTimeout(() => {
-            el.classList.add("animated-in");
-          }, 400);
-        }}
-      >
-        <div className="expandedListItem"
-             style={{ backgroundColor: color }}
-             onClick={() => onClick(index)}>
-          <Flipped inverseFlipId={`listItem-${index}`}>
-            <div className="expandedListItemContent">
-              <Flipped flipId={`avatar-${index}`} stagger="card-content">
-                <div className="avatar avatarExpanded">
-                  <img src={require('../Images/coin.svg')} />
-                </div>
-              </Flipped>
-              <div className="description">
-                Coin Flip
-                <div className="bet-summary">Current bet:</div>
-                <div className="bet-summary">${bet_amount}</div>
-                <div><button onClick={this.tryJoin(room)}>Submit</button></div>
-                </div>
-              <div className="additional-content">
-                <div className = "join-button"> 
-                </div>
-              </div>
-            </div>
-          </Flipped>
-        </div>
-      </Flipped>
-    );
-  };
-
-  tryJoin(room){
-    return function(event){
-      event.stopPropagation(); 
-      io.emit("join-room", {
-        roomCode: room,
-        ready: false
-      }, (result) => {
-        if(result.success){
-          this.setState({doRedirect: true});
-        }
-        else{
-          alert("Room joined failed!");
-        }
-      });
-    }
+  tryJoin = (event, room) => {
+    io.emit("join-room", {
+      roomCode: room,
+      ready: false
+    }, (result) => {
+      if(result.success){
+        console.log("Success");
+        this.setState({doRedirect: true});
+      }
+      else{
+        alert("Room joined failed!");
+      }
+    });
+    event.stopPropagation(); 
   }
   
   onClick = index =>
     this.setState({
       focused: this.state.focused === index ? null : index
     });
+    
   render() {
     if(this.state.doRedirect){
       this.state.doRedirect = false;
@@ -173,7 +172,8 @@ class Main extends Component {
             return (
               <li>
                 {index === this.state.focused ? (
-                  <this.ExpandedListItem
+                  <ExpandedListItem
+                    tryJoin={this.tryJoin}
                     room={this.state.rooms[index]}
                     bet_amount={this.state.bets[index]}
                     index={this.state.focused}

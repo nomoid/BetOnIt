@@ -117,6 +117,7 @@ io.on("connection", (sock) => {
         */
         sock.on("join-room", (input, callback) => {
             let roomCode = input.roomCode;
+            console.log(id + " is trying to join room with code " + roomCode);
             let ready = input.ready;
             if(!roomCode){
                 callback({
