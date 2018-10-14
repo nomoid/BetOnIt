@@ -1,5 +1,5 @@
 # BetOnIt
-Made by Markus Feng, Alex Han, Jian Lu, and Tongyu Zhou
+HackUMass October 14 2018
 
 We lay the foundation for a betting app where one can invite other users to place bets on certain outcomes.
 Our application supports user-creation, user-login, profile, creating game rooms, joining game rooms, and some games for proof of concept. This platform was created such that it will be easily expandable and we will be able to add games to our website platform as more are designed. The idea for a social betting website came from Nudge, a book written by nobel laureate Richard Thaler. He discovered that however marginal, the possibility of losing money motivates people to adhere to their promises. 
@@ -76,17 +76,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Markus Feng - [PurpleBooth](https://github.com/PurpleBooth)
+* Alex Han
+* Jian Lu
+* Tongyu Zhou
