@@ -6,11 +6,13 @@ import '../Styles/Main.css';
 
 const listData = [...Array(7).keys()];
 const colors = ["#A4C3B2", "#6B9080", "#545C52"];
+const bets = ['50', '640', '450', '10', '200', '150', '130']
+const rooms = ['123141', '531412', '213141', '064834', '234591', '932914', '322512']
 const shouldFlip = index => (prev, current) =>
   index === prev || index === current;
 
 
-const ListItem = ({ index, color, onClick }) => {
+const ListItem = ({ room, index, color, onClick }) => {
   return (
     <Flipped
       flipId={`listItem-${index}`}
@@ -30,7 +32,7 @@ const ListItem = ({ index, color, onClick }) => {
               <div className="avatar" />
             </Flipped>
             <div className="description">
-              coin flip
+             Room {room}
             </div>
           </div>
         </Flipped>
@@ -39,7 +41,7 @@ const ListItem = ({ index, color, onClick }) => {
   );
 };
 
-const ExpandedListItem = ({ index, color, onClick }) => {
+const ExpandedListItem = ({ bet_amount, index, color, onClick }) => {
   return (
     <Flipped
       flipId={`listItem-${index}`}
@@ -61,7 +63,10 @@ const ExpandedListItem = ({ index, color, onClick }) => {
               </div>
             </Flipped>
             <div className="description">
-              Coin Flip</div>
+              Coin Flip
+              <div className="bet-summary">Current bet:</div>
+              <div className="bet-summary">${bet_amount}</div>
+              </div>
             <div className="additional-content">
               <div className = "join-button"> <Link to="/coin">join game</Link></div>
             </div>
@@ -109,12 +114,15 @@ class Main extends Component {
               <li>
                 {index === this.state.focused ? (
                   <ExpandedListItem
+                    bet_amount={bets[index]}
                     index={this.state.focused}
                     color={colors[this.state.focused % colors.length]}
                     onClick={this.onClick}
                   />
                 ) : (
-                  <ListItem index={index}
+                  <ListItem
+                  room={rooms[index]}
+                  index={index}
                   key={index}
                   color={colors[index % colors.length]}
                   onClick={this.onClick} />
