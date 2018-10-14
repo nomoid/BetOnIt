@@ -1,5 +1,5 @@
 /*
- * Jian Lu
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
  * (c) 2018
  * 
  * The signup component handles all the sign up features for a user. It is 

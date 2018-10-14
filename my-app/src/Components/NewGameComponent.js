@@ -1,3 +1,12 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * Handles submissions for new games, is only authenticated when bet amount is 
+ * less than the current credit of the active player
+ */
+
+
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router';

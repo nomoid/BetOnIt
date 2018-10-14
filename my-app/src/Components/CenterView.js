@@ -1,3 +1,12 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * This is the front end code for a centerview display. We utilize
+ * this display for our sign up process, and our game components.
+ */
+
+
 import React, { Component } from 'react';
 import { Col, Grid, Row } from 'react-bootstrap';
 

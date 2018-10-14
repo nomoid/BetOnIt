@@ -1,3 +1,11 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * Prompts user to accept invitation from a private game
+ */
+
+
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';

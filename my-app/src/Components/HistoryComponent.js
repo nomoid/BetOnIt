@@ -1,3 +1,14 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * 
+ * This is the dummy table, which we did not get to fully flush out.
+ * We utilize will eventually implement a leaderboards and past matches
+ * based off this component.
+ */
+
+
 import React from "react";
 import { render } from "react-dom";
 import { makeData } from "./Utils";

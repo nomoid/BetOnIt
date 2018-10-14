@@ -1,3 +1,9 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * Randomly fills history table
+ */
+
+
 import React from "react";
 
 const range = len => {

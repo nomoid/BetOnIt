@@ -1,4 +1,4 @@
-let io = require('socket.io-client')('https://bet-on-it-umass.herokuapp.com');
+let io = require('socket.io-client')('http://localhost:8080');
 
 module.exports = {
     io: io

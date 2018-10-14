@@ -1,3 +1,12 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * The login component handles the process of login in a user
+ * by accessing the Firebase database and checking for the existence.
+ */
+
+
 import React, { Component } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import '../Styles/Page.css';

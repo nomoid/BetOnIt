@@ -1,5 +1,5 @@
 /*
- * Jian Lu
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
  * (c) 2018
  * 
  * The login component handles the process of login in a user

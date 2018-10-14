@@ -1,3 +1,12 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * A transition screen after a player creates a game and waits for another to join.
+ * We redirect the page as soon as the redirect parameter becomes true.
+ */
+
+
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import '../Styles/NewGame.css';

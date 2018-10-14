@@ -1,3 +1,13 @@
+/*
+ * Markus Feng, Alex Han, Jian Lu, Tongyu Zhou
+ * (c) 2018
+ * 
+ * This is the front end for the coin flipping game. We utilize flippy 
+ * in order get a single flip. We continue to edit key frames to get multiple 
+ * rotations.
+ */
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
