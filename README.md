@@ -17,25 +17,19 @@ Install all of the dependencies that this app will need to run
 ```
 npm install
 ```
+in Bet root, then once in my-app
 
+### Running
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+To run on a local host:
 ```
-Give the example
+npm run dev
 ```
-
-And repeat
-
+in Bet root, then
 ```
-until finished
+npm start
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
+in my-app. The application should now be accessible at localhost:3000/.
 
 ## Deployment
 
