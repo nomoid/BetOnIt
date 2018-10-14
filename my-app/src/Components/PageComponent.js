@@ -10,12 +10,31 @@ import Table from './HistoryComponent';
 import Main from './MainComponent';
 //import Navigate from './Navigate';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { firebase } from '../Firebase';
 
+class PageComponent extends Component{
 
-const PageComponent = ({authUser}) =>
-    <div>
-        { authUser ? <PageAuth authUser={authUser} /> : <PageNonAuth /> }
-    </div>
+    constructor(){
+        super();
+        this.state = {};
+        firebase.auth.onAuthStateChanged( authUser => { 
+            console.log("State changed");
+            if(authUser){
+            this.setState({authUser: authUser});
+            }
+            else{
+            this.setState({authUser: null});
+            }  
+        });
+    }
+
+    render(){
+        return <div>
+            { this.state.authUser ? <PageAuth authUser={this.state.authUser} /> : <PageNonAuth /> }
+        </div>;
+    }
+}
+    
 
 const PageNonAuth = () =>
     <div className="Page">

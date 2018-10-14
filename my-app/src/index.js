@@ -21,7 +21,7 @@ import Loading from './Components/LoadingComponent';
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Page} />
+      <Route exact path="/" component={App} />
       <Route path="/main" component={Main} />
       <Route path="/coin" component={Game} />
       <Route path="/profile" component={Table} />

@@ -112,8 +112,8 @@ class Main extends Component {
 
 
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     console.log("Initialize");
     this.state = {
       listData: [...Array(0).keys()],
@@ -123,28 +123,27 @@ class Main extends Component {
       credit: 0,
       doRedirect: false
     };
-    io.on("connect", () => {
-      io.emit("initialize", {
-        id: Math.floor(Math.random() * 1000) //TODO
-      }, (balance) => {
-        this.state.credit = balance;
-        io.emit("get-room-list", null, (list) => {
-          console.dir(list);
-          this.state.listData = [...Array(list.length).keys()];
-          this.state.rooms = [];
-          this.state.bets = [];
-          for(let i = 0; i < list.length; i++){
-            let roomCode = list[i].roomCode;
-            let payment = list[i].payment;
-            this.state.rooms.push(roomCode);
-            this.state.bets.push(payment);
-          }
-          this.forceUpdate(() => {
-            console.log("Done updating")
-          });
+    
+    io.emit("initialize", {
+      id: Math.floor(Math.random() * 1000) //TODO
+    }, (balance) => {
+      this.state.credit = balance;
+      io.emit("get-room-list", null, (list) => {
+        console.dir(list);
+        this.state.listData = [...Array(list.length).keys()];
+        this.state.rooms = [];
+        this.state.bets = [];
+        for(let i = 0; i < list.length; i++){
+          let roomCode = list[i].roomCode;
+          let payment = list[i].payment;
+          this.state.rooms.push(roomCode);
+          this.state.bets.push(payment);
+        }
+        this.forceUpdate(() => {
+          console.log("Done updating")
         });
       });
-    })
+    });
   }
 
   tryJoin = (event, room) => {
@@ -180,7 +179,7 @@ class Main extends Component {
         }
       }}/>;
     }
-    else if(this.props.location.state && this.props.location.state.refresh){
+    else if(this.props.location && this.props.location.state && this.props.location.state.refresh){
       this.props.location.state.refresh = false;
       io.emit("get-balance", null, (balance) => {
         this.state.credit = balance;
