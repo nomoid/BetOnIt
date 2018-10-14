@@ -24,6 +24,10 @@ ol, ul {
   text-align: center;
 }
 
+.back{
+  text-align: center;
+}
+
 .circle {
   outline: none;
   background: transparent;

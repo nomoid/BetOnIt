@@ -7,6 +7,7 @@
   margin-top: 20px;
   padding: 10px;
   text-align: center;
+  color: black;
 }
 
 .spacer {
@@ -116,7 +117,6 @@
 .additional-content > div {
   opacity: 0;
   border-radius: 3px;
-  background-color: hsla(0, 0%, 100%, 0.3);
   height: 5rem;
 }
 

@@ -88,13 +88,13 @@ class Board extends React.Component {
           {this.renderCoin(0)}
         <div className="status">{flip_result}</div>
         <div className="status">{this.state.end_msg}</div>
-        <div>
+        <div className="back">
           { this.state.showing ? <div><Link to={{
             pathname: "/main",
             state: {
               refresh: true
             }
-          }}>go back</Link></div> : null}
+          }}>Go Back</Link></div> : null}
         </div>
       </div>
     );
