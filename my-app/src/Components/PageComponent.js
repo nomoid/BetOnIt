@@ -41,20 +41,7 @@ const PageNonAuth = () =>
         <Navbar>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <h1 className="Page-title">React Web Application</h1>
-                    <Router>
-                    <div>
-                        <li>
-                            <a href="/coin">Coin Flip</a>
-                        </li>
-                        <li>
-                            <a href="/profile">Profile</a>
-                        </li>
-                        <li>
-                            <a href="/main">Main</a>
-                        </li>
-                    </div>
-                    </Router>
+                    <h1 className="Page-title">Bet On It</h1>
                 </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -76,7 +63,7 @@ const PageAuth = ({authUser}) =>
         <Navbar>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <h1 className="Page-title">React Web Application</h1>
+                    <h1 className="Page-title">Bet On It</h1>
                 </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
