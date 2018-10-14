@@ -90,7 +90,7 @@ class Main extends Component {
     const io = require('../client.js');
     io.on("connection", () => {
       io.emit("initialize", {
-        id: 5 //TODO
+        id: Math.floor(Math.random() * 1000) //TODO
       }, (balance) => {
         this.state.credit = balance;
         io.emit("get-room-list", (list) => {
