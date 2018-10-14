@@ -14,7 +14,7 @@ const io = net.io;
     this.state ={
 
     };
-    
+
   }
 
     componentWillMount(){
@@ -123,7 +123,7 @@ class Main extends Component {
       credit: 0,
       doRedirect: false
     };
-    
+
     io.emit("initialize", {
       id: this.props.authUser.uid
     }, (balance) => {

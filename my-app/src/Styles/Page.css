@@ -1,6 +1,7 @@
 .Page {
   text-align: center;
-  background-color: #17D1AB;
+  background-image: url("../Images/gamble.svg");
+  background-color: #262626;
 }
 
 .Page-title {
@@ -12,7 +13,14 @@
 }
 
 .Page-body {
-    
+
+}
+
+.textbox{
+  margin-top: 40px;
+  padding: 20px;
+  color: lightgray;
+  background-color: hsla(0, 0%, 100%, 0.3);
 }
 
 .container {
