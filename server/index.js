@@ -65,7 +65,6 @@ io.on("connection", (sock) => {
         /*
         {
             name: (String),
-            gameID: (int),
             public: (boolean),
             payment: (int)
         }
@@ -88,6 +87,7 @@ io.on("connection", (sock) => {
                 });
                 return;
             }
+            console.log(id + " created room with code " + roomCode);
             balances[id] -= gameData.payment;
             let game = games[gameData.name];
             rooms[roomCode] = {
@@ -138,8 +138,12 @@ io.on("connection", (sock) => {
                 return;
             }
             if(game.players.indexOf(id) >= 0){
+                callback({
+                  success: false
+                });
                 return;
             }
+            console.log(id + " joined room with code " + roomCode);
             socks[id].room = roomCode;
             game.players.push(id);
             callback({
@@ -162,20 +166,23 @@ io.on("connection", (sock) => {
             if(game.ready.indexOf(id) >= 0){
                 return;
             }
+            console.log(id + " readied in room " + roomCode);
             game.ready.push(id);
             checkAllReady(game);
         });
-        sock.on("get-room-list", (obj, callback) => {
-            let object = obj;
+        sock.on("get-room-list", (nullobj, callback) => {
+            console.log(id + " fetched room list");
+            let object = nullobj;
             let arr = [];
             for(let i = 0; i < publicRooms.length; i++){
-                let room = rooms[publicRooms[i]];
+                let roomCode = publicRooms[i];
+                let room = rooms[roomCode];
                 if(room){
                     let obj = {
-                        payment: room.payment,
-                        roomCode: room.roomCode
+                        payment: room.gameData.payment,
+                        roomCode: roomCode
                     };
-                    if(game.players.length >= game.game.maxPlayers()){
+                    if(room.players.length >= room.game.maxPlayers()){
                         continue;
                     }
                     arr.push(obj);
@@ -184,6 +191,7 @@ io.on("connection", (sock) => {
             callback(arr);
         });
         sock.on("disconnect", () => {
+            console.log(id + " disconnected");
             let roomCode = socks[id].room;
             if(roomCode){
                 let room = rooms[roomCode];
@@ -205,6 +213,7 @@ function checkAllReady(game){
     remove(publicRooms, roomCode);
     let inputs = null; //TODO inputs
     let winner = game.game.run(players, inputs);
+    console.log(winner + " won the game in " + roomCode);
     balances[winner] += game.gameData.payment * players.length;
     for(let i = 0; i < players.length; i++){
         let player = players[i];

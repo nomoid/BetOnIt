@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 
+const net = require('../client.js');
+const io = net.io;
+
 class NewGame extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +23,25 @@ class NewGame extends Component {
   }
 
   handleSubmit(event) {
-    alert('Game created with ' + this.state.opp + ', ' + this.state.bet);
+    
+    /*
+    name: (String),
+            gameID: (int),
+            public: (boolean),
+            payment: (int)
+            */
+    io.emit("create-room", {
+      name: 'cointoss',
+      public: true,
+      payment: parseInt(this.state.bet, 10)
+    }, (info) => {
+      if(info.success){
+        alert('Game created with room code ' + info.roomCode);
+      }
+      else{
+        alert('Failed to create game!');
+      }
+    });
     event.preventDefault();
   }
 

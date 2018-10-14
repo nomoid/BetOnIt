@@ -97,6 +97,7 @@ class Main extends Component {
       }, (balance) => {
         this.state.credit = balance;
         io.emit("get-room-list", null, (list) => {
+          console.dir(list);
           this.state.listData = [...Array(list.length).keys()];
           this.state.rooms = [];
           this.state.bets = [];
