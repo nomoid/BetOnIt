@@ -1,5 +1,24 @@
-function authenticate(username, token){
+/*const environment = process.env.NODE_ENV || 'development';
+const configuration = require('../../knexfile')[environment];
+const database = require('knex')(configuration);*/
 
+let db = {
+    usersByName = {},
+    users = {},
+    bodies = {},
+    metas = {},
+    messages = {}
+};
+
+function authenticate(username, token){
+    //TODO
+    return true;
+}
+
+function register(username){
+    let id = generateUserID();
+    users[id] = username;
+    usersByName[username] = id;
 }
 
 function getMessagesForUser(id){
@@ -7,40 +26,40 @@ function getMessagesForUser(id){
 }
 
 function getID(username){
-
+    return usersByName[username];
 }
 
 function addBody(bodyID, body){
-
+    db.bodies[bodyID] = body;
 }
 
 function getBody(bodyID){
-
+    return db.bodies[bodyID];
 }
 
 function addMeta(metaID, meta){
-
+    db.metas[metaID] = meta;
 }
 
 function getMeta(metaID){
-    
+    return db.metas[metaID];
 }
 
-function addMessage(messageID, bodyID){
-
+function addMessage(messageID, body){
+    db.messages[messageID] = body;
 }
 
 function getMessage(messageID){
-
+    return db.messages[messageID];
 }
 
 //Change "new" to "non-new"
 function readMessage(messageID){
-    
+    db.messages[messageID].read = true;
 }
 
 function deleteMessage(messageID){
-
+    delete db.messages[messageID];
 }
 
 //Temporary
@@ -64,6 +83,10 @@ function generateMetaID(){
     return generateID();
 }
 
-function currentTime(){
+function generateUserID(){
+    return generateID();
+}
 
+function currentTime(){
+    return new Date().getTime();
 }

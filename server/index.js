@@ -23,7 +23,10 @@ let env = {
 io.on("connection", (sock) => {
   try{
     resp = new ClientResponse(sock, env);
-    if(!db.authenticate(sock.username, sock.token)){
+    if(sock.register){
+      db.register(sock.username);
+    }
+    else if(!db.authenticate(sock.username, sock.token)){
       resp.authenticationFailed();
       return;
     }
