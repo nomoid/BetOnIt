@@ -139,7 +139,7 @@ io.on("connection", (sock) => {
             }
             if(game.players.indexOf(id) >= 0){
                 callback({
-                  success: false
+                    success: false
                 });
                 return;
             }
