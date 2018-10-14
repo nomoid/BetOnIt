@@ -178,7 +178,8 @@ function checkAllReady(game){
     }
     let roomCode = game.roomCode;
     remove(publicRooms, roomCode);
-    let winner = game.game.run();
+    let inputs = null; //TODO inputs
+    let winner = game.game.run(players, inputs);
     balances[winner] += game.gameData.payment * players.length;
     for(let i = 0; i < players.length; i++){
         let player = players[i];
