@@ -1,3 +1,5 @@
+// TODO polish signin()
+// 
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon, Panel } from 'react-bootstrap';
 import '../Styles/Signup.css';
@@ -24,9 +26,9 @@ class SignupComponent extends Component {
         });
     }
   
-    signup(e){
+    signup(e) {
         e.preventDefault();
-        fetch("/signup", {
+        fetch("http://localhost:8080/signup", {
             method : "POST",
             headers: {
                 'Accept'      : 'application/json',
@@ -39,36 +41,39 @@ class SignupComponent extends Component {
                 password: this.state.password
             })
         })
-            // output here, if no error, is the user's metadata
-            .then((response) => {
-                console.log(response);
-                localStorage.setItem('token', response.token);
-            });
+        .then((response) => {
+            return response.json();
+        })
+        // output here, if no error, is the user's metadata
+        .then((json) => {
+            console.log(JSON.stringify(json));
+            localStorage.setItem('token', json.token);
+        });
     }
     
-  render() {
-    return (
-        <Panel>
-            <Panel.Heading>Sign Up!</Panel.Heading>
-            <Panel.Body>
-                <Form onSubmit={this.signup}>
-                    <FormGroup bsSize="large">
-                        <FormControl type="text" placeholder="Username" onChange={this.handleChange} name="username" />
-                    </FormGroup>{' '}
-                    <FormGroup bsSize="large">
-                        <FormControl type="text" placeholder="Email" onChange={this.handleChange} name="email" />
-                    </FormGroup>{' '}
-                    <FormGroup bsSize="large">
-                        <FormControl type="password" placeholder="Password" onChange={this.handleChange} name="password" />
-                    </FormGroup>{' '}
-                    <FormGroup bsSize="large">
-                        <Button type="submit" ><Glyphicon glyph="log-in" /> Signup</Button>
-                    </FormGroup>
-                </Form>
-            </Panel.Body>
-        </Panel>
-    );
-  }
+    render() {
+        return (
+            <Panel>
+                <Panel.Heading>Sign Up!</Panel.Heading>
+                <Panel.Body>
+                    <Form onSubmit={this.signup}>
+                        <FormGroup bsSize="large">
+                            <FormControl type="text" placeholder="Username" onChange={this.handleChange} name="username" />
+                        </FormGroup>{' '}
+                        <FormGroup bsSize="large">
+                            <FormControl type="text" placeholder="Email" onChange={this.handleChange} name="email" />
+                        </FormGroup>{' '}
+                        <FormGroup bsSize="large">
+                            <FormControl type="password" placeholder="Password" onChange={this.handleChange} name="password" />
+                        </FormGroup>{' '}
+                        <FormGroup bsSize="large">
+                            <Button type="submit" ><Glyphicon glyph="log-in" /> Signup</Button>
+                        </FormGroup>
+                    </Form>
+                </Panel.Body>
+            </Panel>
+        );
+    }
 }
 
 export default SignupComponent;

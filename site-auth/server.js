@@ -5,6 +5,13 @@ var   express = require('express');
 var   app     = express();
 const http    = require('http')
 
+// allows front/backend to run from single port
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
+});
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 

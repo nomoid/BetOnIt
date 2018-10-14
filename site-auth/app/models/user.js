@@ -112,5 +112,5 @@ const findByToken = (token) => {
 }
 
 module.exports = {
-    signup, signin, authenticate
+    signup, signin
 }

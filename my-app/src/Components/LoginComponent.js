@@ -7,23 +7,43 @@ class LoginComponent extends Component {
   constructor(props){
     super(props);
     this.state = {
-      email: '',
+      username: '',
       password: '',
     };
     
     this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
+    this.login        = this.login.bind(this);
   }
   
   handleChange(e) {
     this.setState({
-        [e.target.name]: e.target.value 
+        [e.target.name]: e.target.value
     });
   }
   
   login(e) {
     e.preventDefault();
-    /*function from PostGresql user authentification*/
+    fetch("http://localhost:8080/signin", {
+      method : "POST",
+      headers: {
+        'Accept'      : 'application/json',
+        'Content-Type': 'application/json'
+      },
+
+      //make sure to serialize your JSON body
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+
+    })
+    // output here, if no error, is the user's metadata
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      console.log(JSON.stringify(json));
+    });
   }
     
   render() {
@@ -31,7 +51,7 @@ class LoginComponent extends Component {
       <div className="Login">
         <Form inline onSubmit={this.login}>
             <FormGroup>
-                <FormControl type="text" placeholder="Email" onChange={this.handleChange} name="email" />
+                <FormControl type="text" placeholder="Username" onChange={this.handleChange} name="username" />
             </FormGroup>{' '}
             <FormGroup>
                 <FormControl type="password" placeholder="Password" onChange={this.handleChange} name="password" />
