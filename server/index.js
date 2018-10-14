@@ -10,7 +10,7 @@ console.log(`Serving static from ${clientPath}`);
 app.use(express.static(clientPath));
 
 const io = socketio(server);
-io.set('origins', '*:*');
+io.origins('*:*');
 
 console.log("Hello, world!");
 
