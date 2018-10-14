@@ -10,10 +10,9 @@ http://bet-on-it-hack.herokuapp.com/
 
 ## Features
 1. **Homepage**: registration for a new user profile and login 
-2. **Dashboard**: a scrollable that contains information about user profile, ability to create new bets, current credit on hand, and all the active bets
-3. **User Profile**: lists a history of all previous games played by the player, along with their win rates
-4. **Create New Game**: creates a coin flip game with a unique room code that gets added to the dashboard, open to public viewing for all other users
-5. **Join Existing Game**: browse through the list of currently ongoing games, listed by their room codes and current bets
+2. **Dashboard**: a scrollable that contains information about ability to create new bets, current credit on hand, and all the active bets
+3. **Create New Game**: creates a coin flip game with a unique room code that gets added to the dashboard, open to public viewing for all other users
+4. **Join Existing Game**: browse through the list of currently ongoing games, listed by their room codes and current bets
 
 ## Getting Started
 
