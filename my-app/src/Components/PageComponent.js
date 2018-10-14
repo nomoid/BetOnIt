@@ -7,6 +7,7 @@ import Logout from './LogoutComponent';
 import Signup from './SignupComponent';
 import Game from './CoinComponent';
 import Table from './HistoryComponent';
+import Main from './MainComponent';
 //import Navigate from './Navigate';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -28,7 +29,10 @@ const PageNonAuth = () =>
                             <a href="/coin">Coin Flip</a>
                         </li>
                         <li>
-                            <a href="/table">Past History</a>
+                            <a href="/profile">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/main">Main</a>
                         </li>
                     </div>
                     </Router>
@@ -64,7 +68,7 @@ const PageAuth = ({authUser}) =>
 
         <div className="container">
             <CenterView>
-                /*Main Page Link*/
+                <Main authUser={authUser}></Main>
             </CenterView>
         </div>        
     </div>

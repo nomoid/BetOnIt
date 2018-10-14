@@ -12,14 +12,20 @@ import App from './App';
 import Game from './Components/CoinComponent';
 import Table from './Components/HistoryComponent';
 import Page from './Components/PageComponent';
+import Main from './Components/MainComponent';
+import NewGame from './Components/NewGameComponent';
+import ResponseRequest from './Components/ResponseRequestComponent';
 
 //ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-    <Route exact path="/" component={Page} />
-    <Route path="/coin" component={Game} />
-    <Route path="/table" component={Table} />
+      <Route exact path="/" component={Page} />
+      <Route path="/main" component={Main} />
+      <Route path="/coin" component={Game} />
+      <Route path="/profile" component={Table} />
+      <Route path="/new" component={NewGame} />
+      <Route path="/request" component={ResponseRequest} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

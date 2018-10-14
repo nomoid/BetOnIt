@@ -4,3 +4,9 @@ body {
   font-family: sans-serif;
   font: 16px "Century Gothic", Futura, sans-serif;
 }
+
+.Table {
+  text-align: center;
+  font: 12px;
+  background-color: #17D1AB;
+}

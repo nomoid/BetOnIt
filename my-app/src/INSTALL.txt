@@ -1,6 +1,10 @@
 npm install react-flippy
 npm install react-table
 npm install username-generator --save
+<<<<<<< HEAD
 npm install react-dom
 npm install react-router-dom
 npm install react-bootstrap
+=======
+npm install react-flip-toolkit
+>>>>>>> tongyu-dashboard
