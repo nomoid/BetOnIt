@@ -67,7 +67,7 @@ const ExpandedListItem = ({ index, color, onClick }) => {
             <div className="description">
               Coin Flip</div>
             <div className="additional-content">
-              <div className = "join-button" > join game</div>
+              <div className = "join-button"> join game</div>
             </div>
           </div>
         </Flipped>
