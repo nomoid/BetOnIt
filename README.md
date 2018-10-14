@@ -37,26 +37,6 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
@@ -74,6 +54,6 @@ See documentation for our division of labor.
 
 ## Authors
 * Markus Feng - [assisstion](https://github.com/assisstion)
-* Alex Han - [assisstion](https://github.com/assisstion)
+* Alex Han - [ahan98](https://github.com/ahan98)
 * Jian Lu - [jian13579](https://github.com/jian13579) 
 * Tongyu Zhou - [eutopi](https://github.com/eutopi)
