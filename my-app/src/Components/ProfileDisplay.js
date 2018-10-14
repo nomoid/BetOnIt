@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import '../Styles/Profile.css';
+//import '../Styles/Profile.css';
 import CenterView from './CenterView';
 import Table from './HistoryComponent';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -27,16 +27,28 @@ class Profile extends Component{
 	}
 
 	componentWillMount(){
-		/*Load in the state of the data referenced by our database*/.
+		/*Load in the state of the data referenced by our database*/
 	}
 
 	render(){
-		return()
+		return(
 		<div>
+			<ul>
+				<li>
+					<Link to = '/history' component={Table}></Link>
+				</li>
+				<li>
+					<Link to = '/leaderboard' component={Table}></Link>
+				</li>
+			</ul>
+
+		<Route path="/leaderboard" component={Table} />
+      	<Route path="/history" component={Table} />
 		</div>
+		)
 	}
 
 
 }
 
-export default ProfileDisplay;
+export default Profile;

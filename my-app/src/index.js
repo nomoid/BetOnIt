@@ -19,8 +19,10 @@ ReactDOM.render(
     <Switch>
     <Route exact path="/" component={Page} />
     <Route path="/coin" component={Game} />
-    <Route path="/table" component={Table} />
+    <Route path="/history" component={Table}/>
+    <Route path="/leaderboard" component={Table}/>
     <Route path="/profile component={Profile}"/>
+
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
