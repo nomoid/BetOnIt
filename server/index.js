@@ -145,8 +145,6 @@ io.on("connection", (sock) => {
                 return;
             }
             console.log(id + " joined room with code " + roomCode);
-            socks[id].room = roomCode;
-            game.players.push(id);
             if(ready){
                 if(balances[id] < game.gameData.payment){
                     callback({
@@ -155,6 +153,8 @@ io.on("connection", (sock) => {
                     return;
                 }
             }
+            socks[id].room = roomCode;
+            game.players.push(id);
             callback({
                 success: true,
                 gameData: game.gameData
