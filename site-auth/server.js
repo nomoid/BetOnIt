@@ -10,9 +10,10 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app)
 app.post('/signup', User.signup)
+app.post('/signin', User.signin)
 
 const port = 3000;
 server.listen(port, () => {
     console.log("Server started on port " + port);
 })
-// module.exports = app;
+
