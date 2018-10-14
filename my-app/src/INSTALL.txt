@@ -1,3 +1,4 @@
 npm install react-flippy
 npm install react-table
 npm install username-generator --save
+npm install react-flip-toolkit

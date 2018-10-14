@@ -1,12 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 import { makeData } from "./Utils";
-import '../index.css';
-import '../Styles/Table.css';
-
-// Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import '../Styles/Table.css';
 
 class Table extends React.Component {
   constructor() {
@@ -18,7 +15,7 @@ class Table extends React.Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
+      <div className="Table">
         <ReactTable
           data={data}
           columns={[

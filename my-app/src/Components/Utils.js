@@ -1,5 +1,4 @@
 import React from "react";
-import '../Styles/Table.css';
 
 const range = len => {
   const arr = [];

@@ -28,7 +28,10 @@ const PageNonAuth = () =>
                             <a href="/coin">Coin Flip</a>
                         </li>
                         <li>
-                            <a href="/table">Past History</a>
+                            <a href="/profile">Profile</a>
+                        </li>
+                        <li>
+                            <a href="/main">Main</a>
                         </li>
                     </div>
                     </Router>
