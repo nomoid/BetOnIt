@@ -10,6 +10,16 @@ class ClientResponse{
 
     register(id){
         this.id = id;
+        //Message format
+        /*
+        {
+            // (request, response, verify)
+            type: (String),
+            body: (Object),
+            // private information
+            input: (Object)
+        }
+        */
         this.sock.on("message", (message, callback) => {
             try{
                 let type = message.type;
@@ -17,14 +27,15 @@ class ClientResponse{
                     throw "No message type.";
                 }
                 let body = message.body;
+                let input = message.input;
                 if(type === "request"){
-                    callback(this.request(id, body));
+                    callback(this.request(id, body, input));
                 }
                 else if(type === "response"){
-                    callback(this.response(id, body));
+                    callback(this.response(id, body, input));
                 }
                 else if(type === "verify"){
-                    callback(this.verify(id, body));
+                    callback(this.verify(id, body, input));
                 }
             }
             catch(err){
@@ -49,14 +60,18 @@ class ClientResponse{
 
     //Request format
     /*
+    input: {
+        //Object for game specific information
+    }
+
     body: {
         ownerID (int),
         verifyID (int),
         invitedID (int[]),
         public (boolean),
         betType (String),
-        downPayment (int),
-        requestedDownPayment (int[]),
+        payment (int),
+        expectedPayment (int),
         betInfo (Object),
         deadline (long),
 
@@ -69,19 +84,30 @@ class ClientResponse{
         responded (int[])
     }
     */
-    request(id, body){
+    request(id, body, input){
         let output = {};
         let ownerID = body.ownerID;
         if(id !== ownerID){
             output.response = "authentication-failed";
             return output;
         }
+
+        //Down payment
+        let balance = this.env.balance[id];
+        if(balance < payment){
+            output.response = "insufficient-balance";
+            return output;
+        } 
+        this.env.balance[id] -= payment;
+
         let meta = {
             accepted: [id],
-            responded: [id]
+            responded: [id],
+            playerInput: {}
         };
+        meta.playerInput[id] = input;
         let metaID = db.generateMetaID();
-        db.addBody(metaID, meta);
+        db.addMeta(metaID, meta);
         let betID = db.generateBetID();
         body.betID = betID;
         this.addMessage(body.invitedID, body);
@@ -100,26 +126,23 @@ class ClientResponse{
         responseInfo (Object)
     }
     */
-    response(id, messageID, body){
+    response(id, body, input){
         let output = {};
         let bet = db.getBody(body.betID);
         if(!bet.invitedID.includes(id)){
             output.response = "authentication-failed";
             return output;
         }
-        let meta = db.getBody(bet.metaID);
+        let meta = db.getMeta(bet.metaID);
         let accepted = meta.accepted;
         let responded = meta.responded;
-        if(body.response === "accept"){
+        if(body.response === "accept" || body.response === "reject"){
             if(!responded.includes(id)){
-                accepted.push(id);
-                responded.push(id);
-                db.addBody(body.betID, bet);
-                checkExecuteBet(bet);
-            }
-        }
-        else if(body.respone === "reject"){
-            if(!responded.includes(id)){
+                if(body.response === "accept"){
+                    accepted.push(id);
+                    meta.playerInput[id] = input;
+                    db.addMeta(metaID, meta);
+                }
                 responded.push(id);
                 db.addBody(body.betID, bet);
                 checkExecuteBet(bet);
@@ -163,7 +186,117 @@ class ClientResponse{
         if(db.currentTime() > bet.deadline ||
                 bet.responded.length == bet.invitedID.length + 1){
             //Everyone invited accepted
-            
+            let results = this.play(bet);
+            let players = results.players;
+            let distribution;
+            if(!results.success){
+                //Refund everyone
+                distribution = results.payments;
+            }
+            else{
+                distribution = results.distribution;
+            }
+            for(let i = 0; i < players.length; i++){
+                let player = players[i];
+                this.env.balance[player] += distribution[player];
+                let message;
+                if(results.success){
+                    message = results.messages[player];
+                }
+                else{
+                    //TODO detailed message
+                    message = {
+                        betID: bet.betID,
+                        status: 'bet-failed'
+                    };
+                }
+                this.addMessage(player, message);
+            }
         }
+    }
+
+    //
+    /*
+    {
+        success: (boolean),
+        payments: (Map<int, int>),
+        //Amount to give to each player
+        distribution: (Map<int, int>),
+        messages: (Map<int, object>),
+        players: (int[])
+    }
+    */
+    play(bet){
+        let output = {
+            success: false
+        }
+        let meta = db.getMeta(bet.metaID);
+        //Copy array
+        let players = meta.accepted.slice(0);
+        let inputs = {};
+        let payments = {};
+        for(let i = 0; i < players.length; i++){
+            let player = players[i];
+            inputs[player] = meta.playerInput[player];
+            payments[player] = bet.payment;
+        }
+        //For two player games, allow asymmetric payment
+        if(players.length == 2 && bet.expectedPayment != bet.payment){
+            let owner = bet.ownerID;
+            if(players[0] == owner){
+                payments[players[1]] = bet.expectedPayment;
+            }
+            else{
+                payments[players[0]] = bet.expectedPayment;
+            }
+        }
+        output.payments = payments;
+        output.players = players;
+        let game = this.env.game[bet.betType];
+        if(!game){
+            return output;
+        }
+        //Game does not support number of players
+        if(!game.supportsPlayers(players.length)){
+            return output;
+        }
+        //Check distribution to make sure there is no net gain
+        let totalPayment = 0;
+        for(let i = 0; i < players.length; i++){
+            totalPayment += payments[players[i]];
+        }
+        //Input
+        /*
+        {
+            payment: (int)
+            //other fields based on passed in
+            ...
+        }
+        */
+        try{
+            let distribution = game.run({
+                owner: bet.ownerID,
+                inputs: inputs,
+                deadline: bet.deadline,
+                payments: playments
+            });
+        }
+        catch(err){
+            console.log("Error running bet with id: " + bet.id);
+            return output;
+        }
+        if(!distribution){
+            return output;
+        }
+        function add(a, b){
+            return a + b;
+        }
+        let totalDistribution = distribution.reduce(add, 0);
+        if(totalDistribution > totalPayment){
+            return output;
+        }
+        output.success = true;
+        output.distribution = distribution;
+        return output;
     }
 }

@@ -23,13 +23,13 @@ let env = {
 io.on("connection", (sock) => {
   try{
     resp = new ClientResponse(sock, env);
-    env.clients.push(resp);
     if(!db.authenticate(sock.username, sock.token)){
       resp.authenticationFailed();
       return;
     }
 
     let id = db.getID(sock.username);
+    env.clients[id] = resp;
     resp.register(id);
 
     //Retrieve all unread messages and send them back to the client

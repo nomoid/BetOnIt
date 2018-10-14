@@ -18,6 +18,14 @@ function getBody(bodyID){
 
 }
 
+function addMeta(metaID, meta){
+
+}
+
+function getMeta(metaID){
+    
+}
+
 function addMessage(messageID, bodyID){
 
 }
