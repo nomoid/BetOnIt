@@ -111,7 +111,7 @@ class ClientResponse{
         db.addMeta(metaID, meta);
         let betID = db.generateBetID();
         body.betID = betID;
-        this.addMessage(body.invitedID, body);
+        this.addMessage(body.invitedID, body, "request");
         output.response = "request-successful";
         output.betID = betID;
         return output;
@@ -180,7 +180,7 @@ class ClientResponse{
 
     }
 
-    addMessage(deliverTo, body){
+    addMessage(deliverTo, body, type){
         let connected = this.env.clients;
         db.addBody(body.betID, body);
         for(let i = 0; i < deliverTo.length; i++){
@@ -188,7 +188,8 @@ class ClientResponse{
             let message = {
                 messageID: db.generateMessageID(),
                 recipient: recipient,
-                body: body
+                body: body,
+                type: type
             };
             db.addMessage(message.messageID, body);
             let client = connected[recipient];
@@ -229,7 +230,7 @@ class ClientResponse{
                         status: 'bet-failed'
                     };
                 }
-                this.addMessage([player], message);
+                this.addMessage([player], message, "result");
             }
         }
     }

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 
+let net = require("../network.js")
+let io = net.io
+
 class NewGame extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +22,37 @@ class NewGame extends Component {
     this.setState({bet: event.target.value});
   }
 
+  /*
+        type: (String),
+        body: (Object),
+        // private information
+        input: (Object)
+
+        ownerID (int),
+        #verifyID (int),
+        invitedID (int[]),
+        public (boolean),
+        betType (String),
+        payment (int),
+        expectedPayment (int),
+        betInfo (Object),
+        deadline (long),
+
+        //server generated
+        betID (int)
+  */
   handleSubmit(event) {
-    alert('Game created with ' + this.state.opp + ', ' + this.state.bet);
+    //alert('Game created with ' + this.state.opp + ', ' + this.state.bet);
+    io.emit("message", {
+      type: 'request',
+      body: {
+        ownerID: net.id,
+        invitedID: parseInt(this.state.opp, 10),
+        betType: "cointoss",
+        payment: parseInt(this.state.bet, 10),
+        deadline: Number.MAX_SAFE_INTEGET
+      }
+    });
     event.preventDefault();
   }
 
