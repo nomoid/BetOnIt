@@ -18,7 +18,8 @@
     "knex": "^0.15.2",
     "morgan": "^1.9.1",
     "nunjucks": "^2.4.2",
-    "pg": "^7.5.0"
+    "pg": "^7.5.0",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -33,6 +34,7 @@
     "mocha-jscs": "^5.0.1",
     "mocha-jshint": "^2.3.1",
     "run-sequence": "^1.2.2",
+    "socket.io-client": "^2.1.1",
     "tiny-lr": "^1.1.1"
   },
   "name": "Bet"
