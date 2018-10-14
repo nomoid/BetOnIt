@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router';
+import '../Styles/NewGame.css';
 
 const net = require('../client.js');
 const io = net.io;
@@ -7,7 +9,11 @@ const io = net.io;
 class NewGame extends Component {
   constructor(props) {
     super(props);
-    this.state = {opp: '', bet: ''};
+    this.state = {
+      opp: '',
+      bet: '',
+      redirect: false
+    };
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
@@ -23,7 +29,6 @@ class NewGame extends Component {
   }
 
   handleSubmit(event) {
-    
     /*
     name: (String),
             gameID: (int),
@@ -37,6 +42,7 @@ class NewGame extends Component {
     }, (info) => {
       if(info.success){
         alert('Game created with room code ' + info.roomCode);
+        this.setState({redirect: true});
       }
       else{
         alert('Failed to create game!');
@@ -46,18 +52,23 @@ class NewGame extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/loading" />;
+    }
     return (
+      <div className='Forms'>
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Room code:
+        <div><label>
+          Room code: { }
           <input type="text" value={this.state.opp} onChange={this.handleChange1} />
-        </label>
-        <label>
-          Bet amount:
+        </label></div>
+        <div><label>
+          Bet amount: { }
           <input type="text" value={this.state.bet} onChange={this.handleChange2} />
-        </label>
-        <input type="submit" value="Submit" />
+        </label></div>
+        <div className='Enter'><input type="submit" value="Submit" /></div>
       </form>
+      </div>
     );
   }
 }

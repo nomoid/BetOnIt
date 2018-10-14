@@ -1,0 +1,17 @@
+.Forms {
+  background-color: #A4C3B2;
+  color: black;
+  align: center;
+  text-align: center;
+  margin-top: 100px;
+  padding: 50px;
+}
+
+.Enter {
+  color: black;
+}
+
+.Loading{
+  margin-top: 100px;
+  text-align: center;
+}
