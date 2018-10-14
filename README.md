@@ -4,6 +4,10 @@ HackUMass October 14 2018
 We lay the foundation for a betting app where one can invite other users to place bets on certain outcomes.
 Our application supports user-creation, user-login, profile, creating game rooms, joining game rooms, and some games for proof of concept. This platform was created such that it will be easily expandable and we will be able to add games to our website platform as more are designed. The idea for a social betting website came from Nudge, a book written by nobel laureate Richard Thaler. He discovered that however marginal, the possibility of losing money motivates people to adhere to their promises. 
 
+## Demo
+Try out our demo here!
+http://bet-on-it-hack.herokuapp.com/
+
 ## Features
 1. **Homepage**: registration for a new user profile and login 
 2. **Dashboard**: a scrollable that contains information about user profile, ability to create new bets, current credit on hand, and all the active bets
