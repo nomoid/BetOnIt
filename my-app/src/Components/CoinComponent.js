@@ -47,10 +47,10 @@ class Board extends React.Component {
   handleClick() {
     let rand;
     if(this.state.win){
-      rand = 0.75;
+      rand = 0.25;
     }
     else{
-      rand = 0.25;
+      rand = 0.75;
     }
     const value = rand < 0.5 ? 'H' : 'T';
     this.setState({flip: value});

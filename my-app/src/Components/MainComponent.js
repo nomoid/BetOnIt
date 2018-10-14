@@ -127,7 +127,9 @@ class Main extends Component {
     }, (result) => {
       if(result.success){
         console.log("Success");
-        this.setState({doRedirect: true});
+        io.on("end-game-" + room, (end) => {
+          this.setState({doRedirect: true, info: end});
+        });
       }
       else{
         alert("Room joined failed!");
@@ -144,7 +146,12 @@ class Main extends Component {
   render() {
     if(this.state.doRedirect){
       this.state.doRedirect = false;
-      return <Redirect push to="/coin" />;
+      return <Redirect push to={{
+        pathname: "/coin",
+        state: {
+          info: this.state.info
+        }
+      }}/>;
     }
     return (
       <Flipper
