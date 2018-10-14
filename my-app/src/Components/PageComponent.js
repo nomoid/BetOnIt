@@ -17,14 +17,14 @@ class PageComponent extends Component{
     constructor(){
         super();
         this.state = {};
-        firebase.auth.onAuthStateChanged( authUser => { 
+        firebase.auth.onAuthStateChanged( authUser => {
             console.log("State changed");
             if(authUser){
             this.setState({authUser: authUser});
             }
             else{
             this.setState({authUser: null});
-            }  
+            }
         });
     }
 
@@ -34,7 +34,7 @@ class PageComponent extends Component{
         </div>;
     }
 }
-    
+
 
 const PageNonAuth = () =>
     <div className="Page">
@@ -53,10 +53,12 @@ const PageNonAuth = () =>
 
         <div className="container">
             <CenterView>
+              <div className="textbox"> </div>
               <Signup ></Signup>
             </CenterView>
-        </div>
-    </div>
+            <div className="textbox"> " You Won't " </div>
+        </div></div>
+
 
 const PageAuth = ({authUser}) =>
     <div className="Page">
@@ -76,6 +78,6 @@ const PageAuth = ({authUser}) =>
             <CenterView>
                 <Main authUser={authUser}></Main>
             </CenterView>
-        </div>        
+        </div>
     </div>
 export default PageComponent;

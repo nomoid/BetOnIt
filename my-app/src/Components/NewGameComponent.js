@@ -64,10 +64,6 @@ class NewGame extends Component {
       <div className='Forms'>
       <form onSubmit={this.handleSubmit}>
         <div><label>
-          Room code: { }
-          <input type="text" value={this.state.opp} onChange={this.handleChange1} />
-        </label></div>
-        <div><label>
           Bet amount: { }
           <input type="text" value={this.state.bet} onChange={this.handleChange2} />
         </label></div>
