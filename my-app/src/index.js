@@ -15,6 +15,7 @@ import Page from './Components/PageComponent';
 import Main from './Components/MainComponent';
 import NewGame from './Components/NewGameComponent';
 import ResponseRequest from './Components/ResponseRequestComponent';
+import Loading from './Components/LoadingComponent';
 
 //ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
@@ -26,6 +27,7 @@ ReactDOM.render(
       <Route path="/profile" component={Table} />
       <Route path="/new" component={NewGame} />
       <Route path="/request" component={ResponseRequest} />
+      <Route path="/loading" component={Loading} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
