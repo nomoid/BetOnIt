@@ -216,9 +216,7 @@ class Main extends Component {
       >
         <div className = "Main">
           <div className="stickyheader">
-            <Link to="/profile">Profile</Link>
-            {'\n'}________________________;
-            <Link to="/new">New Game</Link>
+            <div className="credit"><Link to="/new">New Game</Link></div>
             <div className="credit">Credit: ${this.state.credit}</div>
           </div>
           <div className="spacer"> </div>
