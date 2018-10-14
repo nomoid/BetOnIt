@@ -7,6 +7,7 @@ import Logout from './LogoutComponent';
 import Signup from './SignupComponent';
 import Game from './CoinComponent';
 import Table from './HistoryComponent';
+import Main from './MainComponent';
 //import Navigate from './Navigate';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -64,5 +65,11 @@ const PageAuth = ({authUser}) =>
               <Logout authUser={authUser} ></Logout>
             </Nav>
         </Navbar>
+
+        <div className="container">
+            <CenterView>
+                <Main authUser={authUser}></Main>
+            </CenterView>
+        </div>        
     </div>
 export default PageComponent;

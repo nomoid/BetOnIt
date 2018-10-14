@@ -1,7 +1,15 @@
+/*
+ * Jian Lu
+ * (c) 2018
+ * 
+ * The signup component handles all the sign up features for a user. It is 
+ * usually the first page that a user will see when they access the app.
+ */
+
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon, Panel } from 'react-bootstrap';
 import '../Styles/Signup.css';
-//import auth from postgresql
+import { auth, db } from '../Firebase';
 
 class SignupComponent extends Component {
   
@@ -9,25 +17,37 @@ class SignupComponent extends Component {
     super(props);
     this.state = {
       username: '',
-      email: '',
+      email   : '',
       password: '',
     };
     
     this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
+    this.signup       = this.signup.bind(this);
  
     }
     
     handleChange(e){
         this.setState({
-           [e.target.name]: e.target.value 
+           [e.target.name]: e.target.value
         });
     }
   
     signup(e){
         e.preventDefault();
-        /*Write a try catch to do use logic to sign up 
-        and put a user into the database, console log otherwise*/
+        auth.doCreateUserWithEmailAndPassword(this.state.email,this.state.password)
+        .then( authUser => {
+            db.doCreateUser( authUser.user.uid, this.state.username, this.state.email )
+            .catch(function(error){
+               var code = error.code;
+               var message = error.message;
+               console.log("Failed to create user in database: " + message + "(" + code + ")" );
+            });
+        }).catch(function(error){
+            // handle errors
+            var code = error.code;
+            var message = error.message;
+            console.log("Failed to create user in Firebase: " + message + "(" + code + ")" );
+        }); 
     }
     
   render() {

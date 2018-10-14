@@ -1,7 +1,16 @@
+/*
+ * Jian Lu
+ * (c) 2018
+ * 
+ * The login component handles the process of login in a user
+ * by accessing the Firebase database and checking for the existence.
+ */
+
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon } from 'react-bootstrap';
 import '../Styles/Login.css';
-//import auth from postgresql
+import { auth } from '../Firebase';
+
 class LoginComponent extends Component {
     
   constructor(props){
@@ -23,7 +32,14 @@ class LoginComponent extends Component {
   
   login(e) {
     e.preventDefault();
-    /*function from PostGresql user authentification*/
+    auth.doLoginWithEmailAndPassword(this.state.email,this.state.password)
+    .catch(function(error){
+        // handle errors
+        var code = error.code;
+        var message = error.message;
+        console.log(code);
+        console.log(message);
+    }); 
   }
     
   render() {

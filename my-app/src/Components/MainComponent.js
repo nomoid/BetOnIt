@@ -2,11 +2,34 @@ import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import { Flipper, Flipped } from "react-flip-toolkit";
 import { Link, Redirect } from 'react-router-dom';
+import { db } from '../Firebase';
 import '../Styles/Main.css';
 
 const net = require('../client.js');
 const io = net.io;
 
+/*    constructor(props){
+    super(props);
+
+    this.state ={
+
+    };
+    
+  }
+
+    componentWillMount(){
+      const {updateLocalState} = this;
+      this.databaseRef.on('child_added', snapshot => {
+        const response = snapshot.val();
+        // snapshot.val() is the contents at the posts reference point;
+        // snapshot.key is the unique key for the particular post;
+        updateLocalState(response, snapshot.key);
+      });
+  }
+
+}
+
+const listData = [...Array(7).keys()];*/
 const colors = ["#A4C3B2", "#6B9080", "#545C52"];
 
 const shouldFlip = index => (prev, current) =>
