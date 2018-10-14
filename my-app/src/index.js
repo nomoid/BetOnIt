@@ -1,3 +1,8 @@
+/*
+ * Entry point for the ReactJS frontend.
+ * Uses 'react-router' to route the paths to the given components
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
