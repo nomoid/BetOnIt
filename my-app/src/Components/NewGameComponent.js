@@ -29,6 +29,11 @@ class NewGame extends Component {
   }
 
   handleSubmit(event) {
+    let value = parseInt(this.state.bet, 10);
+    if(value <= 0){
+      alert('Invalid bet input!');
+      return;
+    }
     /*
     name: (String),
             gameID: (int),
@@ -38,7 +43,7 @@ class NewGame extends Component {
     io.emit("create-room", {
       name: 'cointoss',
       public: true,
-      payment: parseInt(this.state.bet, 10)
+      payment: value
     }, (info) => {
       if(info.success){
         alert('Game created with room code ' + info.roomCode);
