@@ -46,6 +46,7 @@ class ClientResponse{
             }
         });
 
+
         this.sock.on("read-message", (messageID) => {
             db.readMessage(messageID);
         });
@@ -66,7 +67,7 @@ class ClientResponse{
 
     body: {
         ownerID (int),
-        verifyID (int),
+        #verifyID (int),
         invitedID (int[]),
         public (boolean),
         betType (String),
@@ -123,6 +124,7 @@ class ClientResponse{
         betID: (int),
         //(accept, reject, modify, ignore, block)
         response: (String),
+        messageID: (int),
         responseInfo (Object)
     }
     */
@@ -159,6 +161,8 @@ class ClientResponse{
                 checkExecuteBet(bet);
             }
         }
+        let responseMessageID = body.messageID;
+        db.deleteMessage(messageID);
         //TODO implement modify, ignore, block
     }
     
@@ -180,12 +184,13 @@ class ClientResponse{
         let connected = this.env.clients;
         db.addBody(body.betID, body);
         for(let i = 0; i < deliverTo.length; i++){
+            let recipient = deliverTo[i];
             let message = {
                 messageID: db.generateMessageID(),
+                recipient: recipient,
                 body: body
-            }
+            };
             db.addMessage(message.messageID, body);
-            let recipient = deliverTo[i];
             let client = connected[recipient];
             if(client){
                 client.sendMessage(message);
@@ -194,7 +199,8 @@ class ClientResponse{
     }
 
     checkExecuteBet(bet){
-        if(db.currentTime() > bet.deadline ||
+        let time = db.currentTime();
+        if(time > bet.deadline ||
                 bet.responded.length == bet.invitedID.length + 1){
             //Everyone invited accepted
             let results = this.play(bet);
@@ -213,6 +219,8 @@ class ClientResponse{
                 let message;
                 if(results.success){
                     message = results.messages[player];
+                    message.timestamp = time;
+                    message.newBalance = db.getBalance(player);
                 }
                 else{
                     //TODO detailed message
@@ -221,7 +229,7 @@ class ClientResponse{
                         status: 'bet-failed'
                     };
                 }
-                this.addMessage(player, message);
+                this.addMessage([player], message);
             }
         }
     }
