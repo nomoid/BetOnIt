@@ -36,7 +36,7 @@ let socks = {
 };
 
 let rooms = {
-    
+
 };
 
 let publicRooms = [];
@@ -88,7 +88,7 @@ io.on("connection", (sock) => {
                 return;
             }
             console.log(id + " created room with code " + roomCode);
-            balances[id] -= gameData.payment;
+            balances[id] -= parseInt(gameData.payment, 10);
             let game = games[gameData.name];
             rooms[roomCode] = {
                 game: game,
@@ -147,11 +147,20 @@ io.on("connection", (sock) => {
             console.log(id + " joined room with code " + roomCode);
             socks[id].room = roomCode;
             game.players.push(id);
+            if(ready){
+                if(balances[id] < game.gameData.payment){
+                    callback({
+                        success: false
+                    });
+                    return;
+                }
+            }
             callback({
                 success: true,
                 gameData: game.gameData
             });
             if(ready){
+                balances[id] -= parseInt(game.gameData.payment, 10);
                 game.ready.push(id);
                 checkAllReady(roomCode);
             }
@@ -168,8 +177,20 @@ io.on("connection", (sock) => {
                 return;
             }
             console.log(id + " readied in room " + roomCode);
+            if(balances[id] < game.gameData.payment){
+                callback({
+                    success: false
+                });
+                return;
+            }
+            balances[id] -= parseInt(game.gameData.payment, 10);
             game.ready.push(id);
             checkAllReady(roomCode);
+        });
+        sock.on("get-balance", (nullobj, callback) => {
+            let object = nullobj;
+            console.log(id + " getting balance");
+            callback(balances[id])
         });
         sock.on("get-room-list", (nullobj, callback) => {
             console.log(id + " fetched room list");
@@ -215,7 +236,7 @@ function checkAllReady(roomCode){
     let inputs = null; //TODO inputs
     let winner = game.game.run(players, inputs);
     console.log(winner + " won the game in " + roomCode);
-    balances[winner] += game.gameData.payment * players.length;
+    balances[winner] += parseInt(game.gameData.payment, 10) * players.length;
     for(let i = 0; i < players.length; i++){
         let player = players[i];
         if(player === winner){
@@ -253,7 +274,7 @@ function deleteRoom(roomCode){
     let players = room.players;
     for(let i = 0; i < players.length; i++){
       let player = players[i];
-      delete socks[player].room;  
+      delete socks[player].room;
     }
     delete rooms[roomCode];
   }

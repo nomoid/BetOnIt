@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import { Link } from 'react-router-dom';
 import '../Styles/Coin.css';
 
 class Coin extends React.Component {
@@ -36,11 +37,13 @@ class Board extends React.Component {
     super(props);
     this.state = {
       win: props.win,
+      balance: props.balance,
       flip: ' ',
       msg: null,
       tails: 0,
       heads: 0,
-      counter: ' '
+      counter: ' ',
+      showing: false
     };
   }
 
@@ -53,15 +56,19 @@ class Board extends React.Component {
       rand = 0.75;
     }
     const value = rand < 0.5 ? 'H' : 'T';
+    let end_msg = '';
     this.setState({flip: value});
     this.setState({msg: 'The flip is ' + (rand < 0.5 ? 'heads' : 'tails')});
     if (value === 'H') {
       this.setState({heads: this.state.heads + 1})
+      end_msg = `You win! Your new balance is $`;
     }
     else {
       this.setState({tails: this.state.tails + 1})
+      end_msg = `You lose! Your new balance is $`;
     }
-    this.setState({counter: 'Tails: ' + this.state.tails + ', Heads: ' + this.state.heads});
+    this.setState({showing: true})
+    this.setState({end_msg: end_msg + this.state.balance});
   }
 
   renderCoin(i) {
@@ -80,7 +87,15 @@ class Board extends React.Component {
         <div className="status">{status}</div>
           {this.renderCoin(0)}
         <div className="status">{flip_result}</div>
-        <div className="status">{this.state.counter}</div>
+        <div className="status">{this.state.end_msg}</div>
+        <div>
+          { this.state.showing ? <div><Link to={{
+            pathname: "/main",
+            state: {
+              refresh: true
+            }
+          }}>go back</Link></div> : null}
+        </div>
       </div>
     );
   }
@@ -91,8 +106,9 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board 
+          <Board
             win={this.props.location.state.info.win}
+            balance={this.props.location.state.info.balance}
           />
         </div>
         <div className="game-info">

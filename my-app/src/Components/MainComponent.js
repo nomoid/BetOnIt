@@ -4,8 +4,8 @@ import { Flipper, Flipped } from "react-flip-toolkit";
 import { Link, Redirect } from 'react-router-dom';
 import '../Styles/Main.css';
 
-const io = require('../client.js').io;
-
+const net = require('../client.js');
+const io = net.io;
 
 const colors = ["#A4C3B2", "#6B9080", "#545C52"];
 
@@ -70,7 +70,7 @@ const ExpandedListItem = ({ tryJoin, room, bet_amount, index, color, onClick }) 
               <div><button onClick={(event) => tryJoin(event, room)}>Submit</button></div>
               </div>
             <div className="additional-content">
-              <div className = "join-button"> 
+              <div className = "join-button">
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ const ExpandedListItem = ({ tryJoin, room, bet_amount, index, color, onClick }) 
 //<Link to="/coin">join game</Link>
 class Main extends Component {
 
-  
+
 
   constructor(){
     super();
@@ -135,14 +135,14 @@ class Main extends Component {
         alert("Room joined failed!");
       }
     });
-    event.stopPropagation(); 
+    event.stopPropagation();
   }
-  
+
   onClick = index =>
     this.setState({
       focused: this.state.focused === index ? null : index
     });
-    
+
   render() {
     if(this.state.doRedirect){
       this.state.doRedirect = false;
@@ -152,6 +152,28 @@ class Main extends Component {
           info: this.state.info
         }
       }}/>;
+    }
+    else if(this.props.location.state && this.props.location.state.refresh){
+      this.props.location.state.refresh = false;
+      io.emit("get-balance", null, (balance) => {
+        this.state.credit = balance;
+        io.emit("get-room-list", null, (list) => {
+          console.dir(list);
+          this.state.listData = [...Array(list.length).keys()];
+          this.state.rooms = [];
+          this.state.bets = [];
+          for(let i = 0; i < list.length; i++){
+            let roomCode = list[i].roomCode;
+            let payment = list[i].payment;
+            this.state.rooms.push(roomCode);
+            this.state.bets.push(payment);
+          }
+          this.forceUpdate(() => {
+            this.state.credit = balance;
+            console.log("Done updating")
+          });
+        });
+      });
     }
     return (
       <Flipper
