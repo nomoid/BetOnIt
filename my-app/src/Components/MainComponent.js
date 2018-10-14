@@ -4,18 +4,15 @@ import { Flipper, Flipped } from "react-flip-toolkit";
 import { Link } from 'react-router-dom';
 import '../Styles/Main.css';
 
-class MainComponent extends React.Component {
-
-
-}
-
 const listData = [...Array(7).keys()];
 const colors = ["#A4C3B2", "#6B9080", "#545C52"];
+const bets = ['50', '640', '450', '10', '200', '150', '130']
+const rooms = ['123141', '531412', '213141', '064834', '234591', '932914', '322512']
 const shouldFlip = index => (prev, current) =>
   index === prev || index === current;
 
 
-const ListItem = ({ index, color, onClick }) => {
+const ListItem = ({ room, index, color, onClick }) => {
   return (
     <Flipped
       flipId={`listItem-${index}`}
@@ -35,7 +32,7 @@ const ListItem = ({ index, color, onClick }) => {
               <div className="avatar" />
             </Flipped>
             <div className="description">
-              coin flip
+             Room {room}
             </div>
           </div>
         </Flipped>
@@ -44,7 +41,7 @@ const ListItem = ({ index, color, onClick }) => {
   );
 };
 
-const ExpandedListItem = ({ index, color, onClick }) => {
+const ExpandedListItem = ({ bet_amount, index, color, onClick }) => {
   return (
     <Flipped
       flipId={`listItem-${index}`}
@@ -66,7 +63,10 @@ const ExpandedListItem = ({ index, color, onClick }) => {
               </div>
             </Flipped>
             <div className="description">
-              Coin Flip</div>
+              Coin Flip
+              <div className="bet-summary">Current bet:</div>
+              <div className="bet-summary">${bet_amount}</div>
+              </div>
             <div className="additional-content">
               <div className = "join-button"> <Link to="/coin">join game</Link></div>
             </div>
@@ -78,7 +78,10 @@ const ExpandedListItem = ({ index, color, onClick }) => {
 };
 
 class Main extends Component {
-  state = { focused: null };
+  state = {
+    focused: null,
+    credit: 130
+  };
   onClick = index =>
     this.setState({
       focused: this.state.focused === index ? null : index
@@ -98,19 +101,28 @@ class Main extends Component {
         decisionData={this.state.focused}
       >
         <div className = "Main">
-          <div className="new-game"> <Link to="/new">New Game</Link></div>
+          <div className="stickyheader">
+            <Link to="/profile">Profile</Link>
+            {'\n'}________________________;
+            <Link to="/new">New Game</Link>
+            <div className="credit">Credit: ${this.state.credit}</div>
+          </div>
+          <div className="spacer"> </div>
         <ul className="list">
           {listData.map(index => {
             return (
               <li>
                 {index === this.state.focused ? (
                   <ExpandedListItem
+                    bet_amount={bets[index]}
                     index={this.state.focused}
                     color={colors[this.state.focused % colors.length]}
                     onClick={this.onClick}
                   />
                 ) : (
-                  <ListItem index={index}
+                  <ListItem
+                  room={rooms[index]}
+                  index={index}
                   key={index}
                   color={colors[index % colors.length]}
                   onClick={this.onClick} />
