@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon, Panel } from 'react-bootstrap';
 import '../Styles/Signup.css';
+import signup from "/site-auth/app/models/user.js";
 //import auth from postgresql
 
 class SignupComponent extends Component {
@@ -9,25 +10,41 @@ class SignupComponent extends Component {
     super(props);
     this.state = {
       username: '',
-      email: '',
+      email   : '',
       password: '',
     };
     
     this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
+    this.signup       = this.signup.bind(this);
  
     }
     
     handleChange(e){
         this.setState({
-           [e.target.name]: e.target.value 
+           [e.target.name]: e.target.value
         });
     }
   
+    // passes login to site-auth/server.js
     signup(e){
         e.preventDefault();
-        /*Write a try catch to do use logic to sign up 
-        and put a user into the database, console log otherwise*/
+        fetch("/signup", {
+            method : "POST",
+            headers: {
+                'Accept'      : 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            //make sure to serialize your JSON body
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        })
+        // output here, if no error, is the user's metadata
+        .then((response) => {
+            localStorage.setItem('token', response.token);
+        });
     }
     
   render() {
