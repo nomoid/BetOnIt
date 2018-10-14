@@ -53,10 +53,6 @@ Add additional notes about how to deploy this on a live system
 * Firebase - authentication
 * Socket.io - server
 
-## Contribution
-
-See documentation for our division of labor.
-
 ## Authors
 * Markus Feng - [assisstion](https://github.com/assisstion)
 * Alex Han - [ahan98](https://github.com/ahan98)
