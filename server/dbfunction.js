@@ -62,6 +62,14 @@ function deleteMessage(messageID){
     delete db.messages[messageID];
 }
 
+function getBalance(id){
+    return db.balance[id];
+}
+
+function setBalance(id, balance){
+    db.balance[id] = balance;
+}
+
 //Temporary
 function generateID(){
     return Math.random() * 1000000000;

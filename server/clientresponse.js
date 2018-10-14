@@ -93,12 +93,12 @@ class ClientResponse{
         }
 
         //Down payment
-        let balance = this.env.balance[id];
+        let balance = db.getBalance(id);
         if(balance < payment){
             output.response = "insufficient-balance";
             return output;
         } 
-        this.env.balance[id] -= payment;
+        db.setBalance(id, balance - payment);
 
         let meta = {
             accepted: [id],
@@ -136,9 +136,20 @@ class ClientResponse{
         let meta = db.getMeta(bet.metaID);
         let accepted = meta.accepted;
         let responded = meta.responded;
+        let payment = bet.expectedPayment;
+        if(!payment){
+            payment = bet.payment;
+        }
         if(body.response === "accept" || body.response === "reject"){
             if(!responded.includes(id)){
                 if(body.response === "accept"){
+                    let balance = db.getBalance(id);
+                    if(balance < payment){
+                        output.response = "insufficient-balance";
+                        return output;
+                    } 
+                    db.setBalance(id, balance - payment);
+
                     accepted.push(id);
                     meta.playerInput[id] = input;
                     db.addMeta(metaID, meta);
@@ -173,7 +184,7 @@ class ClientResponse{
                 messageID: db.generateMessageID(),
                 body: body
             }
-            db.addMessage(message.messageID, body.betID);
+            db.addMessage(message.messageID, body);
             let recipient = deliverTo[i];
             let client = connected[recipient];
             if(client){
@@ -235,23 +246,24 @@ class ClientResponse{
         let players = meta.accepted.slice(0);
         let inputs = {};
         let payments = {};
+        let otherPayment = bet.expectedPayment;
+        if(!otherPayment){
+            otherPayment = bet.payment;
+        }
         for(let i = 0; i < players.length; i++){
             let player = players[i];
             inputs[player] = meta.playerInput[player];
-            payments[player] = bet.payment;
+            payments[player] = otherPayment;
         }
-        //For two player games, allow asymmetric payment
-        if(players.length == 2 && bet.expectedPayment != bet.payment){
-            let owner = bet.ownerID;
-            if(players[0] == owner){
-                payments[players[1]] = bet.expectedPayment;
-            }
-            else{
-                payments[players[0]] = bet.expectedPayment;
-            }
-        }
+        let owner = bet.ownerID;
+        payments[owner] = bet.payment;
+        
         output.payments = payments;
         output.players = players;
+        //For non two player games, disallow asymmetric payment
+        if(players.length != 2 && bet.expectedPayment != bet.payment){
+            return output;
+        }
         let game = this.env.game[bet.betType];
         if(!game){
             return output;
@@ -273,9 +285,11 @@ class ClientResponse{
             ...
         }
         */
+       let gameReturn;
         try{
-            let distribution = game.run({
+            gameReturn = game.run({
                 owner: bet.ownerID,
+                players: players,
                 inputs: inputs,
                 deadline: bet.deadline,
                 payments: playments
@@ -285,6 +299,8 @@ class ClientResponse{
             console.log("Error running bet with id: " + bet.id);
             return output;
         }
+        let distribution = gameReturn.distribution;
+        let messages = gameReturn.messages;
         if(!distribution){
             return output;
         }
@@ -297,6 +313,7 @@ class ClientResponse{
         }
         output.success = true;
         output.distribution = distribution;
+        output.messages = messages;
         return output;
     }
 }

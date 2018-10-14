@@ -17,33 +17,38 @@ app.use(express.static(clientPath));
 const io = socketio(server);
 
 let env = {
-  clients = []
+  clients = [],
+  game = {}
 };
 
+env.game['cointoss'] = require('cointoss.js').game;
+
 io.on("connection", (sock) => {
-  try{
-    resp = new ClientResponse(sock, env);
-    if(sock.register){
-      db.register(sock.username);
-    }
-    else if(!db.authenticate(sock.username, sock.token)){
-      resp.authenticationFailed();
-      return;
-    }
+  sock.on("init", (request) => {
+    try{
+      resp = new ClientResponse(sock, env);
+      if(request.register){
+        db.register(request.username);
+      }
+      else if(!db.authenticate(request.username, request.token)){
+        resp.authenticationFailed();
+        return;
+      }
 
-    let id = db.getID(sock.username);
-    env.clients[id] = resp;
-    resp.register(id);
+      let id = db.getID(request.username);
+      env.clients[id] = resp;
+      resp.register(id);
 
-    //Retrieve all unread messages and send them back to the client
-    let messageIDs = db.getMessagesForID(id);
-    for(let i = 0; i < messageIDs.length; i++){
-      resp.sendMessage(db.getMessage(messageIDs(i)));
+      //Retrieve all unread messages and send them back to the client
+      let messageIDs = db.getMessagesForID(id);
+      for(let i = 0; i < messageIDs.length; i++){
+        resp.sendMessage(db.getMessage(messageIDs(i)));
+      }
     }
-  }
-  catch(err){
-    console.log("Error (1): " + err);
-  }
+    catch(err){
+      console.log("Error (1): " + err);
+    }
+  });
 });
 
 
