@@ -1,3 +1,11 @@
+/*
+ * Jian Lu
+ * (c) 2018
+ * 
+ * The signup component handles all the sign up features for a user. It is 
+ * usually the first page that a user will see when they access the app.
+ */
+
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, Glyphicon, Panel } from 'react-bootstrap';
 import '../Styles/Signup.css';

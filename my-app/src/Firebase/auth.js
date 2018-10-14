@@ -1,3 +1,14 @@
+
+/*
+ * Jian Lu
+ * (c) 2018
+ * 
+ * The Authentication component provides a layer of added security by controlling
+ * which methods our application is allowed to use from Firebase. We implement the
+ * basic user authentication functionalities and export them to be available for all
+ * other components. This is essentially a package of authentication functions.
+ */
+
 import { auth } from './firebase';
 
 // Signup
