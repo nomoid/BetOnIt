@@ -10,17 +10,14 @@ Our application supports user-creation, user-login, profile, creating game rooms
 git clone https://github.com/assisstion/Bet.git
 ```
 
+### Prerequisites
+
+Install all of the dependencies that this app will need to run
+
 ```
 npm install
 ```
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
 
 ### Installing
 
